@@ -1,0 +1,21 @@
+{
+  "name": "Testing",
+  "description": "Learning unit test with Grunt, Karma, Jasmine for Angular applications.",
+  "main": "",
+  "authors": [
+    "Ricardo Sarapura <ricky6982@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.5.0",
+    "angular-mocks": "~1.5.0"
+  }
+}
