@@ -44,5 +44,19 @@ describe('-- Prueba de Creación de Trayectorias --', function(){
         expect(service.data.edges.length).toEqual(2);
     });
 
+    it('Calculo de la distancia de una trayectoria', function(){
+        trayecto = [1,2,3,4];
+        service.path.add(trayecto);
+        listaArco = service.data.edges.getIds();
+        expect(listaArco.length).toEqual(3);
+        for (var i = listaArco.length - 1; i >= 0; i--) {
+            arcoAux = service.edge.get(listaArco[i]);
+            arcoAux.distancia = 5;
+            service.edge.update(arcoAux);
+        }
+        expect(service.path.distancia(trayecto)).toEqual(15);
+
+    });
+
 
 });

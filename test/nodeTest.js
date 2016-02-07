@@ -18,6 +18,7 @@ describe('-- Prueba de metodos para Nodos --', function(){
 
     afterEach(function(){
         service.data.nodes.clear();
+        service.data.edges.clear();
     });
 
     it('Creación de nodo', function(){
@@ -47,4 +48,14 @@ describe('-- Prueba de metodos para Nodos --', function(){
         service.node.remove(nodo);
         expect(service.data.nodes.length).toEqual(0);
     });
+
+    it('Agregando un nodo enlazado al ultimo nodo de la red', function(){
+        trayecto = [1,2,3,4,5];
+        service.path.add(trayecto);
+        service.node.addNextAtLast();
+        expect(service.data.nodes.length).toEqual(6);
+        expect(service.edge.getByNodes(5,6).from).toEqual(5);
+        expect(service.edge.getByNodes(5,6).to).toEqual(6);
+    });
+
 });

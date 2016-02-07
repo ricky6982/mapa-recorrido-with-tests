@@ -18,6 +18,7 @@ describe('-- Prueba de metodos para Arcos --', function(){
 
     afterEach(function(){
         service.data.edges.clear();
+        service.data.nodes.clear();
     });
 
     it('Creación de Arco', function(){

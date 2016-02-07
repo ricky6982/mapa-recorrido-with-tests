@@ -28,5 +28,21 @@ _path = {
             }
         }
         return true;
+    },
+    distancia: function(arrayNodos){
+        if (arrayNodos.length > 1) {
+            var d = 0;
+            for (var i = 0; i < arrayNodos.length - 1; i++) {
+                arco = _edge.getByNodes(arrayNodos[i], arrayNodos[i+1]);
+                if (arco) {
+                    d += parseFloat(arco.distancia);
+                }else{
+                    return Infinity;
+                }
+            }
+            return d;
+        }else{
+            return 0;
+        }
     }
 };

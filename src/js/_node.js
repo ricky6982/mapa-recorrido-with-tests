@@ -11,6 +11,15 @@ _node = {
     add: function(n){
         _nodes.add(n);
     },
+    addNextAtLast: function(){
+        var list = _nodes.getIds();
+        list = list.map(parseFloat);
+
+        var lastNode = Math.max.apply(Math, list);
+        var nodos = [lastNode];
+        nodos.push(lastNode + 1);
+        _path.add(nodos);
+    },
     get: function(id){
         return _nodes.get(id);
     },

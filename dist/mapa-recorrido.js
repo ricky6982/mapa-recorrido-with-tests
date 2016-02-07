@@ -30,6 +30,15 @@ _node = {
     add: function(n){
         _nodes.add(n);
     },
+    addNextAtLast: function(){
+        var list = _nodes.getIds();
+        list = list.map(parseFloat);
+
+        var lastNode = Math.max.apply(Math, list);
+        var nodos = [lastNode];
+        nodos.push(lastNode + 1);
+        _path.add(nodos);
+    },
     get: function(id){
         return _nodes.get(id);
     },
@@ -114,6 +123,22 @@ _path = {
             }
         }
         return true;
+    },
+    distancia: function(arrayNodos){
+        if (arrayNodos.length > 1) {
+            var d = 0;
+            for (var i = 0; i < arrayNodos.length - 1; i++) {
+                arco = _edge.getByNodes(arrayNodos[i], arrayNodos[i+1]);
+                if (arco) {
+                    d += parseFloat(arco.distancia);
+                }else{
+                    return Infinity;
+                }
+            }
+            return d;
+        }else{
+            return 0;
+        }
     }
 };
 
