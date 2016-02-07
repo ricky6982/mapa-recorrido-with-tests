@@ -1,4 +1,4 @@
-describe('-- Prueba de Creación de Trayectos --', function(){
+describe('-- Prueba de Creación de Trayectorias --', function(){
     
     var element, scope, service;
 
@@ -16,6 +16,10 @@ describe('-- Prueba de Creación de Trayectos --', function(){
         service.init(element[0]);
     }));
 
+    afterEach(function(){
+        service.data.edges.clear();
+        service.data.nodes.clear();
+    });
 
     it('Creación de trayecto', function(){
         trayecto = [1,2,3,4,5,1,6,1,2];
@@ -32,4 +36,13 @@ describe('-- Prueba de Creación de Trayectos --', function(){
 
         expect(service.data.nodes.length).toEqual(0);
     });
+
+    it('Eliminar arco por medio de sus nodos.', function(){
+        arco = service.path.add([5,7,8,9]);
+        expect(service.data.edges.length).toEqual(3);
+        service.edge.removeByNodes(5,7);
+        expect(service.data.edges.length).toEqual(2);
+    });
+
+
 });

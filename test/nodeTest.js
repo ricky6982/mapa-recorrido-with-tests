@@ -1,4 +1,4 @@
-describe('-- Prueba de metodos para nodos --', function(){
+describe('-- Prueba de metodos para Nodos --', function(){
     
     var element, scope, service;
 
@@ -16,6 +16,9 @@ describe('-- Prueba de metodos para nodos --', function(){
         service.init(element[0]);
     }));
 
+    afterEach(function(){
+        service.data.nodes.clear();
+    });
 
     it('Creación de nodo', function(){
         nodo = service.node.create(2);
@@ -38,7 +41,10 @@ describe('-- Prueba de metodos para nodos --', function(){
     });
 
     it('Eliminacion de nodos', function(){
-
+        nodo = service.node.create(1);
+        service.node.add(nodo);
         expect(service.data.nodes.length).toEqual(1);
+        service.node.remove(nodo);
+        expect(service.data.nodes.length).toEqual(0);
     });
 });

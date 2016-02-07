@@ -16,6 +16,10 @@ describe('-- Prueba de metodos para Arcos --', function(){
         service.init(element[0]);
     }));
 
+    afterEach(function(){
+        service.data.edges.clear();
+    });
+
     it('Creación de Arco', function(){
         arco = service.edge.create(1,2);
         arcoValido = {
@@ -29,18 +33,20 @@ describe('-- Prueba de metodos para Arcos --', function(){
 
     });
 
-    // it('Actualización de Nodo', function(){
-    //     nodo = {
-    //         id: 2,
-    //         label: 'N-2 Edited'
-    //     };
+    it('Obtener un arco por medio de sus nodos', function(){
+        arco = service.edge.create(5,7);
+        arco.id = "ID-PRUEBA";
+        service.edge.add(arco);
 
-    //     service.node.update(nodo);
-    //     expect(service.node.get(2)).toEqual({id: 2, label: 'N-2 Edited'});
-    // });
+        expect(service.edge.getByNodes(5,7).id).toEqual("ID-PRUEBA");
+    });
 
-    // it('Eliminacion de nodos', function(){
+    it('Eliminación de un Arco', function(){
+        arco = service.edge.create(5,7);
+        service.edge.add(arco);
+        expect(service.data.edges.length).toEqual(1);
+        service.edge.remove(arco);
+        expect(service.data.edges.length).toEqual(0);
+    });
 
-    //     expect(service.data.nodes.length).toEqual(1);
-    // });
 });

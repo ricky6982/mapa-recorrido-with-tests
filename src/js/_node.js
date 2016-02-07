@@ -16,5 +16,8 @@ _node = {
     },
     update: function(n){
         _nodes.update(n);
+    },
+    remove: function(n){
+        _nodes.remove(n);
     }
 };
