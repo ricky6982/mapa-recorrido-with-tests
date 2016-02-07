@@ -15,7 +15,10 @@ _edge = {
         return _edges.get(id);
     },
     remove: function(e){
+        n1 = e.from;
+        n2 = e.to;
         _edges.remove(e);
+        actualizarConexionOrientacion(n1, n2);
     },
     getByNodes: function (n1, n2) {
         var arcoId = null;
@@ -33,6 +36,7 @@ _edge = {
         _edges.remove(interseccion[0]);
     },
     update: function(e){
+        validarEstado(e);
         _edges.update(e);
     },
     getSelected: function(){

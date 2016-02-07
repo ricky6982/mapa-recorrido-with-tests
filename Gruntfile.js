@@ -28,6 +28,13 @@ module.exports = function (grunt){
             }
         },
 
+        jshint: {
+            beforeconcat: ["src/js/*.js", "test/*.js"],
+            options: {
+              eqnull: true
+            }
+        },
+
         watch: {
             startup: {
                 files: [],
@@ -39,13 +46,12 @@ module.exports = function (grunt){
             },
             js: {
                 files: ['src/js/*.js'],
-                tasks: ['concat'],
+                tasks: ['concat', 'jshint'],
             },
             karma: {
                 files: ['src/js/*.js', 'test/*.js'],
                 tasks: ['karma:continuous:run'],
             }
-
         },
 
         karma: {
@@ -62,10 +68,11 @@ module.exports = function (grunt){
 
     });
 
-    grunt.registerTask('default', 'Perform a normal build', ['concat', 'karma:unit:run']);
+    grunt.registerTask('default', 'Perform a normal build', ['jshint', 'concat', 'karma:unit:run']);
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-karma');
 };

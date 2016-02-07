@@ -43,9 +43,9 @@ describe('-- Prueba de metodos para Arcos --', function(){
     });
 
     it('Eliminación de un Arco', function(){
-        arco = service.edge.create(5,7);
-        service.edge.add(arco);
+        service.path.add([5,7]);
         expect(service.data.edges.length).toEqual(1);
+        arco = service.edge.getByNodes(5,7);
         service.edge.remove(arco);
         expect(service.data.edges.length).toEqual(0);
     });
