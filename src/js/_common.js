@@ -11,11 +11,14 @@ var _data = {
 
 var _network;
 
-var dijkstras;
+var dijkstras, _$rootScope, _$http;
+
+var urlRemoteMap = "", urlSaveRemoteMap = "";
 
 
-function init(container){
-    _network = new vis.Network(container, _data, _options);
+function init(divContainer){
+    _network = new vis.Network(divContainer, _data, _options);
+    initEvents();
 }
 
 /**
@@ -122,3 +125,27 @@ function direccionInversa(direccion){
             return 'arr';
     }
 }
+
+//
+// Funciones de Animación de la Red
+//
+    function setAnimacion(flag){
+        if (flag) {
+            _network.setOptions({nodes: { physics: true }});
+        }else{
+            _network.setOptions({nodes: { physics: false }});
+        }
+    }
+
+    function savePositions(){
+        _network.storePositions();
+        restorePositions();
+    }
+
+    function restorePositions(){
+        angular.forEach(_nodes.getIds(), function(value, key){
+            if (_nodes.get(value).x) {
+                _network.moveNode(_nodes.get(value).id, _nodes.get(value).x, _nodes.get(value).y);
+            }
+        });
+    }

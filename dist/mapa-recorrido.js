@@ -11,18 +11,18 @@ function PriorityQueue () {
   this.enqueue = function (priority, key) {
     this._nodes.push({key: key, priority: priority });
     this.sort();
-  };
+  }
   this.dequeue = function () {
     return this._nodes.shift().key;
-  };
+  }
   this.sort = function () {
     this._nodes.sort(function (a, b) {
       return a.priority - b.priority;
     });
-  };
+  }
   this.isEmpty = function () {
     return !this._nodes.length;
-  };
+  }
 }
 
 /**
@@ -34,7 +34,7 @@ function Graph(){
 
   this.addVertex = function(name, edges){
     this.vertices[name] = edges;
-  };
+  }
 
   this.shortestPath = function (start, finish) {
     var nodes = new PriorityQueue(),
@@ -176,11 +176,14 @@ var _data = {
 
 var _network;
 
-var dijkstras;
+var dijkstras, _$rootScope, _$http;
+
+var urlRemoteMap = "", urlSaveRemoteMap = "";
 
 
-function init(container){
-    _network = new vis.Network(container, _data, _options);
+function init(divContainer){
+    _network = new vis.Network(divContainer, _data, _options);
+    initEvents();
 }
 
 /**
@@ -288,6 +291,129 @@ function direccionInversa(direccion){
     }
 }
 
+//
+// Funciones de Animación de la Red
+//
+    function setAnimacion(flag){
+        if (flag) {
+            _network.setOptions({nodes: { physics: true }});
+        }else{
+            _network.setOptions({nodes: { physics: false }});
+        }
+    }
+
+    function savePositions(){
+        _network.storePositions();
+        restorePositions();
+    }
+
+    function restorePositions(){
+        angular.forEach(_nodes.getIds(), function(value, key){
+            if (_nodes.get(value).x) {
+                _network.moveNode(_nodes.get(value).id, _nodes.get(value).x, _nodes.get(value).y);
+            }
+        });
+    }
+events = {
+    nodoSeleccionado:{
+        suscribe: function(scope, callback){
+            var handler = _$rootScope.$on('selected-nodes', callback);
+            scope.$on('$destroy', handler);
+        },
+        notify: function() {
+            _$rootScope.$emit('selected-nodes');
+        }
+    },
+    arcoSeleccionado:{
+        suscribe: function(scope, callback){
+            var handler = _$rootScope.$on('selected-edges', callback);
+            scope.$on('$destroy', handler);
+        },
+        notify: function() {
+            _$rootScope.$emit('selected-edges');
+        }
+    },
+    clickCanvas: {
+        suscribe: function(scope, callback){
+            var handler = _$rootScope.$on('click-canvas', callback);
+            scope.$on('$destroy', handler);
+        },
+        notify: function(){
+            _$rootScope.$emit('click-canvas');
+        }
+
+    }
+};
+
+function initEvents(){
+    _network.on('selectNode', function(){
+        _$rootScope.$emit('selected-nodes');
+    });
+    _network.on('selectEdge', function(){
+        _$rootScope.$emit('selected-edges');
+    });
+    _network.on('click', function(){
+        _$rootScope.$emit('click-canvas');
+    });
+}
+/**
+ * Comunicación remota para obtener y guardar un mapa
+ */
+remote = {
+    setUrlMap: function(url){
+        urlRemoteMap = url;
+    },
+    getUrlMap: function(){
+        return urlRemoteMap;
+    },
+    setUrlSave: function(url){
+        urlSaveRemoteMap = url;
+    },
+    getUrlSave: function(){
+        return urlSaveRemoteMap;
+    },
+    getMap: function(){
+        if (remote.getUrlMap() !== "") {
+            _$http({
+                url: remote.getUrlMap(),
+                method: 'GET',
+            })
+            .success(function(data, status){
+                angular.forEach(data[0].mapaJson.nodes._data, function(n){
+                    _node.add(n);
+                });
+                angular.forEach(data[0].mapaJson.edges._data, function(e){
+                    _edge.add(e);
+                });
+                setAnimacion(false);
+                restorePositions();
+                _network.fit();
+            })
+            .error(function(data){
+                console.log('No se encontro un mapa');
+            })
+            ;
+        }
+    },
+    saveMap: function(){
+        if (remote.getUrlSave() !== "") {
+            _$http({
+                url: remote.getUrlSave(),
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            })
+            .success(function(data, status){
+                console.log('Se guardo el mapa correctamente.');
+            })
+            .error(function(err){
+                console.log('No se pudo guardar el mapa.');
+            });
+        }
+    }
+};
 /**
  * Definición de Funciones para manipular los nodos
  */
@@ -427,16 +553,25 @@ _path = {
  */
 angular.module('mapaRecorrido',['dijkstras-service'])
     .factory('mapaService', [
-        'dijkstras',
-        function(dijkstrasService){
+        'dijkstras', '$rootScope', '$http',
+        function(dijkstrasService, $rootScope, $http){
+
             dijkstras = dijkstrasService;
+            _$rootScope = $rootScope;
+            _$http = $http;
+
             return {
                 init: init,
                 getMapa: _data,
                 data: _data,
                 node: _node,
                 edge: _edge,
-                path: _path
+                path: _path,
+                events: events,
+                setAnimacion: setAnimacion,
+                savePositions: savePositions,
+                restorePositions: restorePositions,
+                remote: remote
             };
         }
     ])
