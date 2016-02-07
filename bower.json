@@ -1,6 +1,6 @@
 {
-  "name": "Testing",
-  "description": "Learning unit test with Grunt, Karma, Jasmine for Angular applications.",
+  "name": "mapa-recorrido",
+  "description": "Servicio mapa de recorridos con AngularJS, con pruebas unitarias.",
   "main": "",
   "authors": [
     "Ricardo Sarapura <ricky6982@gmail.com>"

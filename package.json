@@ -1,6 +1,6 @@
 {
-  "name": "test-learning",
-  "version": "1.0.0",
+  "name": "mapa-recorrido",
+  "version": "2.0.0",
   "description": "Learning Test with Grunt, karma, jasmine",
   "main": "files.js",
   "directories": {

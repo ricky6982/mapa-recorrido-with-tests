@@ -19,7 +19,7 @@ module.exports = function(config) {
       './bower_components/angular/angular.min.js',
       './bower_components/angular-mocks/angular-mocks.js',
       './bower_components/vis/dist/vis.min.js',
-      './dist/test-learning.js',
+      './dist/mapa-recorrido.js',
       './test/*.js'
     ],
 
