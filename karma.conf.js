@@ -15,7 +15,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      './dist/mapa-recorrido.js',
+      './bower_components/jquery/dist/jquery.min.js',
+      './bower_components/angular/angular.min.js',
+      './bower_components/angular-mocks/angular-mocks.js',
+      './bower_components/vis/dist/vis.min.js',
+      './dist/test-learning.js',
       './test/*.js'
     ],
 
