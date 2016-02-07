@@ -1,6 +1,169 @@
 (function(window, angular){
 
 /**
+ * Basic priority queue implementation. If a better priority queue is wanted/needed,
+ * this code works with the implementation in google's closure library (https://code.google.com/p/closure-library/).
+ * Use goog.require('goog.structs.PriorityQueue'); and new goog.structs.PriorityQueue()
+ */
+function PriorityQueue () {
+  this._nodes = [];
+
+  this.enqueue = function (priority, key) {
+    this._nodes.push({key: key, priority: priority });
+    this.sort();
+  }
+  this.dequeue = function () {
+    return this._nodes.shift().key;
+  }
+  this.sort = function () {
+    this._nodes.sort(function (a, b) {
+      return a.priority - b.priority;
+    });
+  }
+  this.isEmpty = function () {
+    return !this._nodes.length;
+  }
+}
+
+/**
+ * Pathfinding starts here
+ */
+function Graph(){
+  var INFINITY = 1/0;
+  this.vertices = {};
+
+  this.addVertex = function(name, edges){
+    this.vertices[name] = edges;
+  }
+
+  this.shortestPath = function (start, finish) {
+    var nodes = new PriorityQueue(),
+        distances = {},
+        previous = {},
+        path = [],
+        smallest, vertex, neighbor, alt;
+
+    for(vertex in this.vertices) {
+      if(vertex === start) {
+        distances[vertex] = 0;
+        nodes.enqueue(0, vertex);
+      }
+      else {
+        distances[vertex] = INFINITY;
+        nodes.enqueue(INFINITY, vertex);
+      }
+
+      previous[vertex] = null;
+    }
+
+    while(!nodes.isEmpty()) {
+      smallest = nodes.dequeue();
+
+      if(smallest === finish) {
+        path;
+
+        while(previous[smallest]) {
+          path.push(smallest);
+          smallest = previous[smallest];
+        }
+
+        break;
+      }
+
+      if(!smallest || distances[smallest] === INFINITY){
+        continue;
+      }
+
+      for(neighbor in this.vertices[smallest]) {
+        alt = distances[smallest] + this.vertices[smallest][neighbor];
+
+        if(alt < distances[neighbor]) {
+          distances[neighbor] = alt;
+          previous[neighbor] = smallest;
+
+          nodes.enqueue(alt, neighbor);
+        }
+      }
+    }
+
+    return path;
+  };
+}
+
+// var g = new Graph();
+
+// g.addVertex('A', {B: 7, C: 8});
+// g.addVertex('B', {A: 7, F: 2});
+// g.addVertex('C', {A: 8, F: 6, G: 4});
+// g.addVertex('D', {F: 8});
+// g.addVertex('E', {H: 1});
+// g.addVertex('F', {B: 2, C: 6, D: 8, G: 9, H: 3});
+// g.addVertex('G', {C: 4, F: 9});
+// g.addVertex('H', {E: 1, F: 3});
+
+// // Log test, with the addition of reversing the path and prepending the first node so it's more readable
+// console.log(g.shortestPath('A', 'H').concat(['A']).reverse());
+
+/**
+ * Servicio que encapsula la libreria de dijkstras
+ * para la utilización en el servicio de mapa de recorridos.
+ */
+(function(angular){
+
+    var g = new Graph();
+    var grafoDijkstra = [];
+    var filter;
+
+    function addConexion(nodoInicial, nodoFinal, valorDistancia){
+        valorDistancia = parseFloat(valorDistancia);
+        buscarNodo = filter('filter')(grafoDijkstra, {origen: nodoInicial });
+        if (buscarNodo.length === 0) {
+            conexion = [];
+            conexion.push({
+                destino: nodoFinal,
+                distancia: valorDistancia
+            });
+            grafoDijkstra.push({origen: nodoInicial, conexiones: conexion });
+        }else{
+            buscarNodo[0].conexiones.push({destino: nodoFinal, distancia: valorDistancia});
+        }
+    }
+
+    function makeGraph(arcos){
+        angular.forEach(arcos, function(value, key){
+            addConexion(value.from, value.to, value.distancia);
+            addConexion(value.to, value.from, value.distancia);
+        });
+
+        angular.forEach(grafoDijkstra, function(value, key){
+            enlaces = {};
+            angular.forEach(value.conexiones, function(conexion, i){
+                enlaces[conexion.destino] = conexion.distancia;
+            });
+            g.addVertex(value.origen, enlaces);
+        });
+    }
+
+    angular.module('dijkstras-service', [])
+        .factory('dijkstras', [
+            '$filter',
+            function($filter){
+                filter = $filter;
+                return {
+                    makeGraph: makeGraph,
+                    shortestPath: function(i, f){
+                        i = i.toString();
+                        f = f.toString();
+                        return g.shortestPath(i, f).concat([i]).reverse();
+                    },
+                };
+            }
+        ])
+    ;
+
+}(angular));
+
+/**
  * Definición de Variables y funciones
  */
 var _nodes = new vis.DataSet([]);
@@ -12,6 +175,9 @@ var _data = {
     };
 
 var _network;
+
+var dijkstras;
+
 
 function init(container){
     _network = new vis.Network(container, _data, _options);
@@ -124,6 +290,10 @@ _path = {
         }
         return true;
     },
+    shortest: function(i, f){
+        dijkstras.makeGraph(_edges._data);
+        return dijkstras.shortestPath(i,f);
+    },
     distancia: function(arrayNodos){
         if (arrayNodos.length > 1) {
             var d = 0;
@@ -145,9 +315,11 @@ _path = {
 /**
  * Definición de Estructura Principal
  */
-angular.module('mapaRecorrido',[])
+angular.module('mapaRecorrido',['dijkstras-service'])
     .factory('mapaService', [
-        function(){
+        'dijkstras',
+        function(dijkstrasService){
+            dijkstras = dijkstrasService;
             return {
                 init: init,
                 getMapa: _data,

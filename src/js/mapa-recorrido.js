@@ -2,9 +2,11 @@
 /**
  * Definición de Estructura Principal
  */
-angular.module('mapaRecorrido',[])
+angular.module('mapaRecorrido',['dijkstras-service'])
     .factory('mapaService', [
-        function(){
+        'dijkstras',
+        function(dijkstrasService){
+            dijkstras = dijkstrasService;
             return {
                 init: init,
                 getMapa: _data,

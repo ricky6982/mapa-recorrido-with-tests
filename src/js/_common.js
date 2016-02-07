@@ -11,6 +11,9 @@ var _data = {
 
 var _network;
 
+var dijkstras;
+
+
 function init(container){
     _network = new vis.Network(container, _data, _options);
 }

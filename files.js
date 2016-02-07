@@ -1,5 +1,7 @@
 routerFiles = {
   src: [
+    'src/lib/dijkstras-algorithm/dijkstras.js',
+    'src/js/dijkstras-service.js',
     'src/js/_common.js',
     'src/js/_node.js',
     'src/js/_edge.js',

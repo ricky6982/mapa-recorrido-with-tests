@@ -55,8 +55,22 @@ describe('-- Prueba de Creación de Trayectorias --', function(){
             service.edge.update(arcoAux);
         }
         expect(service.path.distancia(trayecto)).toEqual(15);
-
     });
+
+    it('Calculo de la distancia más corta', function() {
+        trayecto = [1,2,3,4,1];
+        service.path.add(trayecto);
+        listaArco = service.data.edges.getIds();
+        for (var i = listaArco.length - 1; i >= 0; i--) {
+            arcoAux = service.edge.get(listaArco[i]);
+            arcoAux.distancia = i+1;
+            service.edge.update(arcoAux);
+        }
+        caminoMasCorto = service.path.shortest(1,3);
+        expect(caminoMasCorto).toEqual(['1', '2', '3']);
+        expect(service.path.distancia(caminoMasCorto)).toEqual(3);
+    });
+
 
 
 });

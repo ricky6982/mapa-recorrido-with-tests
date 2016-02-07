@@ -29,6 +29,10 @@ _path = {
         }
         return true;
     },
+    shortest: function(i, f){
+        dijkstras.makeGraph(_edges._data);
+        return dijkstras.shortestPath(i,f);
+    },
     distancia: function(arrayNodos){
         if (arrayNodos.length > 1) {
             var d = 0;
