@@ -403,7 +403,7 @@ remote = {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data: data
+                data: _data
             })
             .success(function(data, status){
                 console.log('Se guardo el mapa correctamente.');
@@ -439,11 +439,62 @@ _node = {
     get: function(id){
         return _nodes.get(id);
     },
-    update: function(n){
-        _nodes.update(n);
+    getSelected: function(){
+        return _network.getSelectedNodes();
     },
     remove: function(n){
         _nodes.remove(n);
+    },
+    update: function(n){
+        _nodes.update(n);
+    },
+    updateOrientacion: function(nodo){
+        if (typeof nodo.conexiones != "undefined") {
+            angular.forEach(nodo.conexiones, function(value, key){
+                nodoVecino = _nodes.get(key);
+                if (typeof nodoVecino.conexiones === "undefined") {
+                    nodoVecino.conexiones = {};
+                }
+                nodoVecino.conexiones[nodo.id] = direccionInversa(value);
+                _nodes.update(nodoVecino);
+            });
+        }
+        _nodes.update(nodo);
+    },
+    validarOrientacion: function(){
+        var flag = true;
+        angular.forEach(_nodes._data, function(elem){
+            if (typeof elem.conexiones != "undefined") {
+                // Verifica que las conexiones de cada nodo hacia sus vecinos no este repetida.
+                var conexiones = [];
+                angular.forEach(elem.conexiones, function(conex){
+                    conexiones.push(conex);
+                });
+                if (conexiones.length != $.unique(conexiones).length) {
+                    console.log('El nodo ' + elem.id + ' tiene direcciones repetidas hacia sus nodos vecinos.');
+                    elem.color = nodoWarning;
+                    _node.update(elem);
+                    flag = false;
+                }else{
+                    // Verifica que las direcciones entre dos nodos sea la correcta uno respecto del otro
+                    // Ejemplo: Si el nodo 1 esta conectado por la derecha al nodo 2, entonces el nodo 2 
+                    // debe tener una conexión al nodo 1 con dirección izquierda.
+                    angular.forEach(elem.conexiones, function(value, key){
+                        var nodoVecino = _nodes.get(key);
+                        if (nodoVecino.conexiones[elem.id] != direccionInversa(value)) {
+                            console.log('La orientación entre los nodos ' + elem.id + ' y ' + key + ' no es la correcta.');
+                            elem.color = nodoWarning;
+                            _node.update(elem);
+                            flag = false;
+                        }else{
+                            elem.color = nodoSuccess;
+                            _node.update(elem);
+                        }
+                    });
+                }
+            }
+        });
+        return flag;
     }
 };
 /**
@@ -562,7 +613,7 @@ angular.module('mapaRecorrido',['dijkstras-service'])
 
             return {
                 init: init,
-                getMapa: _data,
+                getData: _data,
                 data: _data,
                 node: _node,
                 edge: _edge,

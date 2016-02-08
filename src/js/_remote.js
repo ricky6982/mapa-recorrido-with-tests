@@ -45,7 +45,7 @@ remote = {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data: data
+                data: _data
             })
             .success(function(data, status){
                 console.log('Se guardo el mapa correctamente.');

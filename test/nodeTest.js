@@ -58,4 +58,58 @@ describe('-- Prueba de metodos para Nodos --', function(){
         expect(service.edge.getByNodes(5,6).to).toEqual(6);
     });
 
+    describe('Actualización de la Orientación entre nodos', function() {
+        /**
+         * Creaciión del siguiente mapa de recorrido seteando las
+         * orientaciones de los nodos 1 y 3, la orientación de los
+         * nodos 2 y 4 el algoritmo setea sus valores
+         * 
+         * (1) ---- (2)
+         *  |        |
+         *  |        |
+         *  |        |
+         * (4) ---- (3)
+         */
+        beforeEach(function(){
+            trayecto = [1,2,3,4,1];
+            service.path.add(trayecto);
+        });
+
+        beforeEach(function(){
+            nodo1 = service.node.get(1);
+            nodo1.conexiones = {};
+            nodo1.conexiones = {
+                "2": "der",
+                "4": "abj"
+            };
+            service.node.updateOrientacion(nodo1);
+
+            nodo3 = service.node.get(3);
+            nodo3.conexiones = {};
+            nodo3.conexiones = {
+                "2": "arr",
+                "4": "izq"
+            };
+            service.node.updateOrientacion(nodo3);
+        });
+
+        it('Conexion del nodo 2 a los nodos 1 y 3', function() {
+            nodo2 = service.node.get(2);
+            conexionEsperada = {
+                "1": "izq",
+                "3": "abj"
+            };
+            expect(nodo2.conexiones).toEqual(conexionEsperada);
+        });
+
+        it('Conexion del nodo 4 a los nodos 1 y 3', function() {
+            nodo4 = service.node.get(4);
+            conexionEsperada = {
+                "1": "arr",
+                "3": "der"
+            };
+            expect(nodo4.conexiones).toEqual(conexionEsperada);
+        });
+    });
+
 });

@@ -13,7 +13,7 @@ angular.module('mapaRecorrido',['dijkstras-service'])
 
             return {
                 init: init,
-                getMapa: _data,
+                getData: _data,
                 data: _data,
                 node: _node,
                 edge: _edge,
