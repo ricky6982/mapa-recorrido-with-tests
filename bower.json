@@ -1,6 +1,6 @@
 {
   "name": "mapa-recorrido",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Servicio mapa de recorridos con AngularJS, con pruebas unitarias.",
   "main": "",
   "authors": [
