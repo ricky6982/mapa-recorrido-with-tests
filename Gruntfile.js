@@ -28,6 +28,16 @@ module.exports = function (grunt){
             }
         },
 
+        html2js: {
+            options: {
+                module: 'mapaRecorrido.templates'
+            },
+            main: {
+                src: ['src/template/**/*.tpl.html'],
+                dest: 'src/template.js'
+            }
+        },
+
         jshint: {
             beforeconcat: ["src/js/*.js", "test/*.js"],
             options: {
@@ -44,12 +54,16 @@ module.exports = function (grunt){
                     spawn: false
                 }
             },
+            html: {
+                files: ['src/template/*.tpl.html'],
+                tasks: ['html2js', 'concat', 'jshint']
+            },
             js: {
-                files: ['src/js/*.js'],
+                files: ['src/js/*.js', 'src/localizacion-servicio/*.js'],
                 tasks: ['concat', 'jshint'],
             },
             karma: {
-                files: ['src/js/*.js', 'test/*.js'],
+                files: ['src/js/*.js', 'src/localizacion-servicio/*.js', './test/*.js'],
                 tasks: ['karma:continuous:run'],
             }
         },
@@ -74,5 +88,6 @@ module.exports = function (grunt){
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-karma');
 };

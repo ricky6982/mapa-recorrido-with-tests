@@ -163,6 +163,33 @@ function Graph(){
 
 }(angular));
 
+angular.module('mapaRecorrido.templates', ['template/selectServicio.tpl.html']);
+
+angular.module("template/selectServicio.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/selectServicio.tpl.html",
+    "<div class=\"popover {{ direccion }} in\" style=\"position: relative; margin: 20px 0; min-height: 9 0px; display: block;\">\n" +
+    "    <div class=\"arrow\"></div>\n" +
+    "    <div class=\"popover-content\">\n" +
+    "        <div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "              <select ng-options=\"categ.id as categ.nombre for categ in categorias\" ng-model=\"lugar.idCategoria\" class=\"form-control input-sm\" ng-change=\"updateServicios()\" ng-click=\"updateCategorias()\">\n" +
+    "                <option value=\"\" selected disabled>--Categoría--</option>\n" +
+    "              </select>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "              <select ng-options=\"serv.id as serv.nombre for serv in servicios\" ng-model=\"lugar.idServicio\" class=\"form-control input-sm\" ng-chage=\"udpatePropiedades()\">\n" +
+    "                <option value=\"\" selected disabled>--Servicio--</option>\n" +
+    "              </select>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "              <input type=\"text\" ng-model=\"lugar.distancia\" ng-change=\"\" class=\"form-control input-sm\" placeholder=\"Distancia\">\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
 /**
  * Definición de Variables y funciones
  */
@@ -629,4 +656,76 @@ angular.module('mapaRecorrido',['dijkstras-service'])
     ])
 ;
 
+(function(angular){
+
+    angular.module('localizacionServicio', ['mapaRecorrido.templates'])
+        .factory('LocalizacionServicio', [
+            '$http',
+            function($http){
+                var urlServicios;
+                getListado = function(){
+                    return $http({
+                        method: 'GET',
+                        url: urlServicios
+                    });
+                };
+
+                setUrl = function(url){
+                    urlServicios = url;
+                };
+
+                return {
+                    setUrl: setUrl,
+                    getListado: getListado
+                };
+            }
+        ])
+
+        .directive('servicioSelect',[
+            'LocalizacionServicio', '$filter',
+            function(Localizacion, $filter){
+                return {
+                    restrict: 'E',
+                    templateUrl: 'template/selectServicio.tpl.html',
+                    replace: true,
+                    scope: {
+                        lugar: '=lugar',
+                        direccion: '@direccion'
+                    },
+                    controller: ['$scope',
+                        function($scope){
+                            $scope.categorias = [];
+                            $scope.servicios = [];
+
+                            $scope.updateServicios = function(){
+                                var result = $filter('filter')($scope.categorias, {id: $scope.lugar.idCategoria });
+                                if (result.length > 0) {
+                                    $scope.servicios = result[0].items;
+                                }
+                            };
+
+                            $scope.updatePropiedades = function(){
+                                $scope.lugar.categoria = $filter('filter')($scope.categorias, {id: $scope.lugar.idCategoria })[0].nombre;
+                                $scope.lugar.servicio = $filter('filter')($scope.servicios, {id: $scope.lugar.idServicio })[0].nombre;
+                            };
+
+                            $scope.updateCategorias = function(){
+                                Localizacion.getListado().then(function success(resp){
+                                    $scope.categorias = resp.data;
+                                    $scope.updateServicios();
+                                }, function errorCallback(err){
+                                });
+                            };
+
+                            if ($scope.lugar) {
+                                $scope.updateCategorias();
+                                $scope.updateServicios();
+                            }
+                        }
+                    ]
+                };
+            }
+        ])
+    ;
+}(angular));
 })(window, angular);

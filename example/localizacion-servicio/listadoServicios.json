@@ -1,0 +1,48 @@
+[{
+    "id": 1,
+    "nombre": "Boleterias",
+    "descripcon": "Venta de Pasajes",
+    "items": [
+        {
+            "id": 101,
+            "nombre": "Balut",
+            "descripcion": "Venta de pasajes al interior de la provincia"
+        },
+        {
+            "id": 105,
+            "nombre": "Jama",
+            "descripcion": "Jama Bus"
+        }
+    ]
+},
+{
+    "id": 2,
+    "nombre": "Locales Comerciales",
+    "descripcon": "Comercios",
+    "items": [
+        {
+            "id": 102,
+            "nombre": "Kiosco",
+            "descripcion": "Venta de golosinas"
+        }
+    ]
+},
+{
+    "id": 3,
+    "nombre": "Confiterias",
+    "descripcon": "Comercios",
+    "items": [
+        {
+            "id": 103,
+            "nombre": "Buen Dia",
+            "descripcion": "Desayunos"
+        },
+        {
+            "id": 104,
+            "nombre": "Bonafide",
+            "descripcion": "Cafe"
+        }
+    ]
+}
+
+]

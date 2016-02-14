@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Localización de servicios</title>
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/angular/angular.min.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../bower_components/vis/dist/vis.min.js"></script>
+</head>
+<body ng-app="app" ng-controller="AppCtrl">
+    <div ng-repeat="item in items track by $index">
+        <servicio-select lugar="lugar" direccion="left"></servicio-select>
+    </div>
+    <button ng-click="crearItem()">Crear Item</button>
+
+    <script src="../../dist/mapa-recorrido.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
