@@ -571,6 +571,22 @@ _edge = {
     count: function(){
         return _edges.length;
     },
+    getDirection: function(arco){
+        n1 = _node.get(arco.from);
+        n2 = _node.get(arco.to);
+        dy = n2.y - n1.y;
+        dx = n2.x - n1.x;
+        if (dx === 0) {
+            return 'vertical';
+        }else{
+            m = dy/dx;
+            if (-1 < m && m < 1) {
+                return 'horizontal';
+            }else{
+                return 'vertical';
+            }
+        }
+    }
 };
 
 /**
