@@ -51,7 +51,7 @@ describe('-- Prueba de metodos para Arcos --', function(){
     });
 
     it('Obtener la Dirección del Arco -> Horizontal', function() {
-        service.path.add([1,2,3,4,5]);
+        service.path.add([1,2,3,4,5,6]);
 
         nodo1 = service.node.get(1); nodo1.x = 0; nodo1.y = 0;
         service.node.update(nodo1);
@@ -79,5 +79,8 @@ describe('-- Prueba de metodos para Arcos --', function(){
 
         arco4_5 = service.edge.getByNodes(4,5);
         expect(service.edge.getDirection(arco4_5)).toEqual('vertical');
+
+        arco5_6 = service.edge.getByNodes(5,6);
+        expect(service.edge.getDirection(arco5_6)).toEqual(null);
     });
 });

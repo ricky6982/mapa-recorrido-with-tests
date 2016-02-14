@@ -52,6 +52,7 @@ app.controller('AppCtrl', [
             $timeout(function(){
                 var arco = mapa.edge.getSelected()[0];
                 $scope.arcoSeleccionado = mapa.edge.get(arco);
+                console.log(mapa.edge.getDirection($scope.arcoSeleccionado));
             },0);
         });
 

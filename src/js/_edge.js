@@ -48,6 +48,9 @@ _edge = {
     getDirection: function(arco){
         n1 = _node.get(arco.from);
         n2 = _node.get(arco.to);
+        if (typeof n1.y === "undefined" || typeof n2.x === "undefined") {
+            return null;
+        }
         dy = n2.y - n1.y;
         dx = n2.x - n1.x;
         if (dx === 0) {
