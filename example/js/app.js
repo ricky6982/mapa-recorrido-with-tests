@@ -1,6 +1,6 @@
 // var app = angular.module('app', []);
 
-var app = angular.module('app', ['mapaRecorrido']);
+var app = angular.module('app', ['mapaRecorrido', 'localizacionServicio']);
 
 app.controller('AppCtrl', [
     '$scope', 'mapaService', '$timeout',

@@ -1,0 +1,118 @@
+@mixin panels-vertical(){
+    box-sizing: border-box;
+    height: 400px;
+    display: inline-block;
+    padding: 15px;
+}
+@mixin panels-horizontal(){
+    box-sizing: border-box;
+    width: 100%;
+    white-space: nowrap;
+    >div{
+        display: inline-block;
+    }
+}
+
+@mixin arco{
+    background-color: #F5CC49;
+    border-radius: 4px;
+    margin: 15px;
+    height: 20px;
+    width: 20px;
+    &.primary{
+        background-color: #337ab7;
+        border-color: #2e6da4;
+    }
+    &.success{
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+    &.warning{
+        background-color: #f0ad4e;
+        border-color: #eea236;
+    }
+}
+
+@mixin nodo{
+    background-color: white;
+    border-radius: 50%;
+    border: 3px solid black;
+    font-size: 23px;
+    height: 50px;
+    line-height: 43px;
+    position: absolute;
+    text-align: center;
+    width: 50px;
+}
+
+.localizacion-servicio{
+    box-sizing: border-box;
+    min-height: 400px;
+    margin: 10px;
+    box-shadow: 0 0 30px -10px black;
+    padding: 10px;
+    &.horizontal{
+        >.panel-first{
+            @include panels-horizontal;
+            overflow-x: scroll;
+        }
+        >.panel-second{
+            @include panels-horizontal;
+            overflow-x: scroll;
+        }
+        >.panel-edge{
+            @include panels-horizontal;
+            height: 50px;
+            position: relative;
+            .arco{
+                @include arco;
+                width: 97%;
+            }
+            .nodo1, .nodo2{
+                @include nodo;
+            };
+            .nodo1{
+                left: 0px;
+                top: 0px;
+            }
+            .nodo2{
+                right: 0px;
+                top: 0px;
+            }
+        }
+    }
+    &.vertical{
+        display: inline-block;
+        >.panel-first{
+            @include panels-vertical;
+            overflow-y: scroll;
+            direction: rtl;
+        }
+        >.panel-second{
+            @include panels-vertical;
+            overflow-y: scroll;
+        }
+        >.panel-edge{
+            @include panels-vertical;
+            width: 50px;
+            position: relative;
+            padding: 0;
+            overflow: hidden;
+            .arco{
+                @include arco;
+                height: 93%;
+                position: absolute;
+            }
+            .nodo1, .nodo2{
+                @include nodo;
+            }
+            .nodo1{
+                top: 0px;
+            }
+            .nodo2{
+                bottom: 0px;
+            }
+        }
+    }
+
+}

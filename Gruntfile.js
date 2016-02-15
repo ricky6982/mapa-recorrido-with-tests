@@ -45,6 +45,14 @@ module.exports = function (grunt){
             }
         },
 
+        sass: {
+            dist: {
+                files: {
+                    '<%= builddir %>/<%= pkg.name %>.css': 'src/sass/main.scss'
+                }
+            }
+        },
+
         watch: {
             startup: {
                 files: [],
@@ -53,6 +61,10 @@ module.exports = function (grunt){
                     atBegin: true,
                     spawn: false
                 }
+            },
+            sass: {
+                files: ['src/sass/*.scss'],
+                tasks: ['sass']
             },
             html: {
                 files: ['src/template/*.tpl.html'],
@@ -88,6 +100,7 @@ module.exports = function (grunt){
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-karma');
 };

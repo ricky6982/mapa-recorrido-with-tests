@@ -1,0 +1,117 @@
+.localizacion-servicio {
+  box-sizing: border-box;
+  min-height: 400px;
+  margin: 10px;
+  box-shadow: 0 0 30px -10px black;
+  padding: 10px; }
+  .localizacion-servicio.horizontal > .panel-first {
+    box-sizing: border-box;
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: scroll; }
+    .localizacion-servicio.horizontal > .panel-first > div {
+      display: inline-block; }
+  .localizacion-servicio.horizontal > .panel-second {
+    box-sizing: border-box;
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: scroll; }
+    .localizacion-servicio.horizontal > .panel-second > div {
+      display: inline-block; }
+  .localizacion-servicio.horizontal > .panel-edge {
+    box-sizing: border-box;
+    width: 100%;
+    white-space: nowrap;
+    height: 50px;
+    position: relative; }
+    .localizacion-servicio.horizontal > .panel-edge > div {
+      display: inline-block; }
+    .localizacion-servicio.horizontal > .panel-edge .arco {
+      background-color: #F5CC49;
+      border-radius: 4px;
+      margin: 15px;
+      height: 20px;
+      width: 20px;
+      width: 97%; }
+      .localizacion-servicio.horizontal > .panel-edge .arco.primary {
+        background-color: #337ab7;
+        border-color: #2e6da4; }
+      .localizacion-servicio.horizontal > .panel-edge .arco.success {
+        background-color: #5cb85c;
+        border-color: #4cae4c; }
+      .localizacion-servicio.horizontal > .panel-edge .arco.warning {
+        background-color: #f0ad4e;
+        border-color: #eea236; }
+    .localizacion-servicio.horizontal > .panel-edge .nodo1, .localizacion-servicio.horizontal > .panel-edge .nodo2 {
+      background-color: white;
+      border-radius: 50%;
+      border: 3px solid black;
+      font-size: 23px;
+      height: 50px;
+      line-height: 43px;
+      position: absolute;
+      text-align: center;
+      width: 50px; }
+    .localizacion-servicio.horizontal > .panel-edge .nodo1 {
+      left: 0px;
+      top: 0px; }
+    .localizacion-servicio.horizontal > .panel-edge .nodo2 {
+      right: 0px;
+      top: 0px; }
+  .localizacion-servicio.vertical {
+    display: inline-block; }
+    .localizacion-servicio.vertical > .panel-first {
+      box-sizing: border-box;
+      height: 400px;
+      display: inline-block;
+      padding: 15px;
+      overflow-y: scroll;
+      direction: rtl; }
+    .localizacion-servicio.vertical > .panel-second {
+      box-sizing: border-box;
+      height: 400px;
+      display: inline-block;
+      padding: 15px;
+      overflow-y: scroll; }
+    .localizacion-servicio.vertical > .panel-edge {
+      box-sizing: border-box;
+      height: 400px;
+      display: inline-block;
+      padding: 15px;
+      width: 50px;
+      position: relative;
+      padding: 0;
+      overflow: hidden; }
+      .localizacion-servicio.vertical > .panel-edge .arco {
+        background-color: #F5CC49;
+        border-radius: 4px;
+        margin: 15px;
+        height: 20px;
+        width: 20px;
+        height: 93%;
+        position: absolute; }
+        .localizacion-servicio.vertical > .panel-edge .arco.primary {
+          background-color: #337ab7;
+          border-color: #2e6da4; }
+        .localizacion-servicio.vertical > .panel-edge .arco.success {
+          background-color: #5cb85c;
+          border-color: #4cae4c; }
+        .localizacion-servicio.vertical > .panel-edge .arco.warning {
+          background-color: #f0ad4e;
+          border-color: #eea236; }
+      .localizacion-servicio.vertical > .panel-edge .nodo1, .localizacion-servicio.vertical > .panel-edge .nodo2 {
+        background-color: white;
+        border-radius: 50%;
+        border: 3px solid black;
+        font-size: 23px;
+        height: 50px;
+        line-height: 43px;
+        position: absolute;
+        text-align: center;
+        width: 50px; }
+      .localizacion-servicio.vertical > .panel-edge .nodo1 {
+        top: 0px; }
+      .localizacion-servicio.vertical > .panel-edge .nodo2 {
+        bottom: 0px; }
+
+/*# sourceMappingURL=mapa-recorrido.css.map */

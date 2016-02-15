@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Example of VisJs service for AngularJS</title>
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../dist/mapa-recorrido.css">
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/angular/angular.min.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -185,6 +186,61 @@
             </div>
         </div>
     </div>
+
+    <!-- Panel para la localización de servicios en un arco seleccionado -->
+            <div class="localizacion-servicio vertical">
+              <div class="panel-first">
+                <servicio-select direccion="left"></servicio-select>
+                <servicio-select direccion="left"></servicio-select>
+                <servicio-select direccion="left"></servicio-select>
+                <servicio-select direccion="left"></servicio-select>
+              </div>
+              <div class="panel-edge">
+                <div class="arco"></div>
+                <div class="nodo1">45</div>
+                <div class="nodo2">105</div>
+              </div>
+              <div class="panel-second">
+                <servicio-select direccion="right"></servicio-select>
+                <servicio-select direccion="right"></servicio-select>
+                <servicio-select direccion="right"></servicio-select>
+                <servicio-select direccion="right"></servicio-select>
+              </div>
+            </div>
+
+            <div class="localizacion-servicio horizontal">
+              <div class="panel-first">
+                <div style="margin-left: 20px;">
+                  <servicio-select direccion="top"></servicio-select>
+                </div>
+                <div style="margin-left: 20px;">
+                  <servicio-select direccion="top"></servicio-select>
+                </div>
+                <div style="margin-left: 20px;">
+                  <servicio-select direccion="top"></servicio-select>
+                </div>
+                <div style="margin-left: 20px;">
+                  <servicio-select direccion="top"></servicio-select>
+                </div>
+                <div style="margin-left: 20px;">
+                  <servicio-select direccion="top"></servicio-select>
+                </div>
+              </div>
+              <div class="panel-edge">
+                <div class="arco"></div>
+                <div class="nodo1">451</div>
+                <div class="nodo2">1</div>
+              </div>
+              <div class="panel-second">
+                <div style="margin-left: 20px;">
+                  <servicio-select direccion="bottom"></servicio-select>
+                </div>
+                <div style="margin-left: 20px;">
+                <servicio-select direccion="bottom"></servicio-select>
+                </div>
+              </div>
+            </div>
+
     <script src="../dist/mapa-recorrido.js"></script>
     <script src="js/app.js"></script>
 </body>
