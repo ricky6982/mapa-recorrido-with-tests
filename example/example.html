@@ -185,61 +185,44 @@
                 </div>
             </div>
         </div>
-    </div>
-
     <!-- Panel para la localización de servicios en un arco seleccionado -->
             <div class="localizacion-servicio vertical">
               <div class="panel-first">
-                <servicio-select direccion="left"></servicio-select>
-                <servicio-select direccion="left"></servicio-select>
-                <servicio-select direccion="left"></servicio-select>
-                <servicio-select direccion="left"></servicio-select>
+                <div ng-repeat="item in arcoSeleccionado.lugares.izq track by $index">
+                  <servicio-select direccion="left" lugar="item"></servicio-select>
+                </div>
               </div>
               <div class="panel-edge">
                 <div class="arco"></div>
-                <div class="nodo1">45</div>
-                <div class="nodo2">105</div>
+                <div class="nodo1">{{ arcoSeleccionado.from }}</div>
+                <div class="nodo2">{{ arcoSeleccionado.to }}</div>
               </div>
               <div class="panel-second">
-                <servicio-select direccion="right"></servicio-select>
-                <servicio-select direccion="right"></servicio-select>
-                <servicio-select direccion="right"></servicio-select>
-                <servicio-select direccion="right"></servicio-select>
+                <div ng-repeat="item in arcoSeleccionado.lugares.der">
+                  <servicio-select direccion="right" lugar="item"></servicio-select>
+                </div>
               </div>
             </div>
 
             <div class="localizacion-servicio horizontal">
               <div class="panel-first">
-                <div style="margin-left: 20px;">
-                  <servicio-select direccion="top"></servicio-select>
-                </div>
-                <div style="margin-left: 20px;">
-                  <servicio-select direccion="top"></servicio-select>
-                </div>
-                <div style="margin-left: 20px;">
-                  <servicio-select direccion="top"></servicio-select>
-                </div>
-                <div style="margin-left: 20px;">
-                  <servicio-select direccion="top"></servicio-select>
-                </div>
-                <div style="margin-left: 20px;">
-                  <servicio-select direccion="top"></servicio-select>
+                <div ng-repeat="item in arcoSeleccionado.lugares.izq track by $index">
+                  <servicio-select lugar="item" direccion="top"></servicio-select>
                 </div>
               </div>
               <div class="panel-edge">
                 <div class="arco"></div>
-                <div class="nodo1">451</div>
-                <div class="nodo2">1</div>
+                <div class="nodo1">{{ arcoSeleccionado.from }}</div>
+                <div class="nodo2">{{ arcoSeleccionado.to }}</div>
               </div>
               <div class="panel-second">
-                <div style="margin-left: 20px;">
-                  <servicio-select direccion="bottom"></servicio-select>
-                </div>
-                <div style="margin-left: 20px;">
-                <servicio-select direccion="bottom"></servicio-select>
+                <div ng-repeat="item in arcoSeleccionado.lugares.der track by $index">
+                  <servicio-select direccion="bottom" lugar="item"></servicio-select>
                 </div>
               </div>
             </div>
+    </div>
+
 
     <script src="../dist/mapa-recorrido.js"></script>
     <script src="js/app.js"></script>

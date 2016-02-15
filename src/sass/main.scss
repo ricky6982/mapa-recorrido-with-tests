@@ -10,6 +10,7 @@
     white-space: nowrap;
     >div{
         display: inline-block;
+        margin-left: 20px;
     }
 }
 
@@ -55,10 +56,12 @@
         >.panel-first{
             @include panels-horizontal;
             overflow-x: scroll;
+            min-height: 220px;
         }
         >.panel-second{
             @include panels-horizontal;
             overflow-x: scroll;
+            min-height: 220px;
         }
         >.panel-edge{
             @include panels-horizontal;
@@ -72,7 +75,7 @@
                 @include nodo;
             };
             .nodo1{
-                left: 0px;
+                left: -10px;
                 top: 0px;
             }
             .nodo2{
@@ -86,11 +89,13 @@
         >.panel-first{
             @include panels-vertical;
             overflow-y: scroll;
+            min-width: 250px;
             direction: rtl;
         }
         >.panel-second{
             @include panels-vertical;
             overflow-y: scroll;
+            min-width: 250px;
         }
         >.panel-edge{
             @include panels-vertical;

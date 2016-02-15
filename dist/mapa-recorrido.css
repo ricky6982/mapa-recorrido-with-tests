@@ -8,16 +8,20 @@
     box-sizing: border-box;
     width: 100%;
     white-space: nowrap;
-    overflow-x: scroll; }
+    overflow-x: scroll;
+    min-height: 220px; }
     .localizacion-servicio.horizontal > .panel-first > div {
-      display: inline-block; }
+      display: inline-block;
+      margin-left: 20px; }
   .localizacion-servicio.horizontal > .panel-second {
     box-sizing: border-box;
     width: 100%;
     white-space: nowrap;
-    overflow-x: scroll; }
+    overflow-x: scroll;
+    min-height: 220px; }
     .localizacion-servicio.horizontal > .panel-second > div {
-      display: inline-block; }
+      display: inline-block;
+      margin-left: 20px; }
   .localizacion-servicio.horizontal > .panel-edge {
     box-sizing: border-box;
     width: 100%;
@@ -25,7 +29,8 @@
     height: 50px;
     position: relative; }
     .localizacion-servicio.horizontal > .panel-edge > div {
-      display: inline-block; }
+      display: inline-block;
+      margin-left: 20px; }
     .localizacion-servicio.horizontal > .panel-edge .arco {
       background-color: #F5CC49;
       border-radius: 4px;
@@ -53,7 +58,7 @@
       text-align: center;
       width: 50px; }
     .localizacion-servicio.horizontal > .panel-edge .nodo1 {
-      left: 0px;
+      left: -10px;
       top: 0px; }
     .localizacion-servicio.horizontal > .panel-edge .nodo2 {
       right: 0px;
@@ -66,13 +71,15 @@
       display: inline-block;
       padding: 15px;
       overflow-y: scroll;
+      min-width: 250px;
       direction: rtl; }
     .localizacion-servicio.vertical > .panel-second {
       box-sizing: border-box;
       height: 400px;
       display: inline-block;
       padding: 15px;
-      overflow-y: scroll; }
+      overflow-y: scroll;
+      min-width: 250px; }
     .localizacion-servicio.vertical > .panel-edge {
       box-sizing: border-box;
       height: 400px;
