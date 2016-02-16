@@ -1,4 +1,28 @@
-angular.module('mapaRecorrido.templates', ['template/selectServicio.tpl.html']);
+angular.module('mapaRecorrido.templates', ['template/guiAgregarServicio.tpl.html', 'template/selectServicio.tpl.html']);
+
+angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/guiAgregarServicio.tpl.html",
+    "<div ng-show=\"arco\">\n" +
+    "<div class=\"localizacion-servicio {{ getDireccion() }}\">\n" +
+    "  <div class=\"panel-first\">\n" +
+    "    <div ng-repeat=\"item in arco.lugares.izq track by $index\">\n" +
+    "      <servicio-select direccion=\"{{ firstArrow }}\" lugar=\"item\" listado=\"categorias\"></servicio-select>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "  <div class=\"panel-edge\">\n" +
+    "    <div class=\"arco\"></div>\n" +
+    "    <div class=\"nodo1\">{{ arco.from }}</div>\n" +
+    "    <div class=\"nodo2\">{{ arco.to }}</div>\n" +
+    "  </div>\n" +
+    "  <div class=\"panel-second\">\n" +
+    "    <div ng-repeat=\"item in arco.lugares.der track by $index\">\n" +
+    "      <servicio-select direccion=\"{{ secondArrow }}\" lugar=\"item\" listado=\"categorias\"></servicio-select>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "</div>\n" +
+    "");
+}]);
 
 angular.module("template/selectServicio.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/selectServicio.tpl.html",
@@ -7,13 +31,13 @@ angular.module("template/selectServicio.tpl.html", []).run(["$templateCache", fu
     "    <div class=\"popover-content\">\n" +
     "        <div>\n" +
     "            <div class=\"form-group\">\n" +
-    "              <select ng-options=\"categ.id as categ.nombre for categ in categorias\" ng-model=\"lugar.idCategoria\" class=\"form-control input-sm\" ng-change=\"updateServicios()\" ng-click=\"updateCategorias()\">\n" +
-    "                <option value=\"\" selected disabled>--Categoría--</option>\n" +
+    "              <select ng-model=\"lugar.idCategoria\" class=\"form-control input-sm\" ng-change=\"updateServicios()\">\n" +
+    "                <option ng-repeat=\"categ in categorias\" value=\"{{ categ.id }}\">{{ categ.nombre }}</option>\n" +
     "              </select>\n" +
     "            </div>\n" +
     "            <div class=\"form-group\">\n" +
-    "              <select ng-options=\"serv.id as serv.nombre for serv in servicios\" ng-model=\"lugar.idServicio\" class=\"form-control input-sm\" ng-chage=\"udpatePropiedades()\">\n" +
-    "                <option value=\"\" selected disabled>--Servicio--</option>\n" +
+    "              <select ng-model=\"lugar.idServicio\" class=\"form-control input-sm\" ng-chage=\"udpatePropiedades()\">\n" +
+    "                <option ng-repeat=\"serv in servicios\" value=\"{{ serv.id }}\">{{ serv.nombre }}</option>\n" +
     "              </select>\n" +
     "            </div>\n" +
     "            <div class=\"form-group\">\n" +

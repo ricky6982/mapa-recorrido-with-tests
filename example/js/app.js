@@ -3,9 +3,17 @@
 var app = angular.module('app', ['mapaRecorrido', 'localizacionServicio']);
 
 app.controller('AppCtrl', [
-    '$scope', 'mapaService', '$timeout',
-    function($scope, mapa, $timeout){
+    '$scope', '$http', 'mapaService', '$timeout',
+    function($scope, $http, mapa, $timeout){
+        urlListadoServicios = "http://localhost/tesisApp/web/app_dev.php/Admin/api/servicios.json";
         mapa.init(document.getElementById('network_vis'));
+        $scope.arcoSeleccionado = {};
+        $scope.nodoSeleccionado = {};
+
+        $scope.listadoServicios = $http({
+            method: 'GET',
+            url: urlListadoServicios
+        });
 
         mapa.remote.setUrlMap("http://localhost/mapa-recorrido/example/mapa.json");
         mapa.remote.getMap();

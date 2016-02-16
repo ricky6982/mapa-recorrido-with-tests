@@ -163,7 +163,31 @@ function Graph(){
 
 }(angular));
 
-angular.module('mapaRecorrido.templates', ['template/selectServicio.tpl.html']);
+angular.module('mapaRecorrido.templates', ['template/guiAgregarServicio.tpl.html', 'template/selectServicio.tpl.html']);
+
+angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/guiAgregarServicio.tpl.html",
+    "<div ng-show=\"arco\">\n" +
+    "<div class=\"localizacion-servicio {{ getDireccion() }}\">\n" +
+    "  <div class=\"panel-first\">\n" +
+    "    <div ng-repeat=\"item in arco.lugares.izq track by $index\">\n" +
+    "      <servicio-select direccion=\"{{ firstArrow }}\" lugar=\"item\" listado=\"categorias\"></servicio-select>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "  <div class=\"panel-edge\">\n" +
+    "    <div class=\"arco\"></div>\n" +
+    "    <div class=\"nodo1\">{{ arco.from }}</div>\n" +
+    "    <div class=\"nodo2\">{{ arco.to }}</div>\n" +
+    "  </div>\n" +
+    "  <div class=\"panel-second\">\n" +
+    "    <div ng-repeat=\"item in arco.lugares.der track by $index\">\n" +
+    "      <servicio-select direccion=\"{{ secondArrow }}\" lugar=\"item\" listado=\"categorias\"></servicio-select>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "</div>\n" +
+    "");
+}]);
 
 angular.module("template/selectServicio.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/selectServicio.tpl.html",
@@ -172,13 +196,13 @@ angular.module("template/selectServicio.tpl.html", []).run(["$templateCache", fu
     "    <div class=\"popover-content\">\n" +
     "        <div>\n" +
     "            <div class=\"form-group\">\n" +
-    "              <select ng-options=\"categ.id as categ.nombre for categ in categorias\" ng-model=\"lugar.idCategoria\" class=\"form-control input-sm\" ng-change=\"updateServicios()\" ng-click=\"updateCategorias()\">\n" +
-    "                <option value=\"\" selected disabled>--Categoría--</option>\n" +
+    "              <select ng-model=\"lugar.idCategoria\" class=\"form-control input-sm\" ng-change=\"updateServicios()\">\n" +
+    "                <option ng-repeat=\"categ in categorias\" value=\"{{ categ.id }}\">{{ categ.nombre }}</option>\n" +
     "              </select>\n" +
     "            </div>\n" +
     "            <div class=\"form-group\">\n" +
-    "              <select ng-options=\"serv.id as serv.nombre for serv in servicios\" ng-model=\"lugar.idServicio\" class=\"form-control input-sm\" ng-chage=\"udpatePropiedades()\">\n" +
-    "                <option value=\"\" selected disabled>--Servicio--</option>\n" +
+    "              <select ng-model=\"lugar.idServicio\" class=\"form-control input-sm\" ng-chage=\"udpatePropiedades()\">\n" +
+    "                <option ng-repeat=\"serv in servicios\" value=\"{{ serv.id }}\">{{ serv.nombre }}</option>\n" +
     "              </select>\n" +
     "            </div>\n" +
     "            <div class=\"form-group\">\n" +
@@ -572,6 +596,9 @@ _edge = {
         return _edges.length;
     },
     getDirection: function(arco){
+        if (!arco) {
+            return false;
+        }
         n1 = _node.get(arco.from);
         n2 = _node.get(arco.to);
         if (typeof n1.y === "undefined" || typeof n2.x === "undefined") {
@@ -673,49 +700,60 @@ angular.module('mapaRecorrido',['dijkstras-service'])
             };
         }
     ])
+    .directive('agregarServicio',[
+        'mapaService',
+        function(mapaService){
+            return {
+                restrict: 'E',
+                templateUrl: 'template/guiAgregarServicio.tpl.html',
+                replace: true,
+                scope: {
+                    arco: '=arco',
+                    listadoServicios: '=listadoServicios'
+                },
+                controller: ['$scope',
+                    function($scope){
+                        $scope.listadoServicios.success(function(data){
+                            $scope.categorias = data;
+                        });
+
+                        $scope.getDireccion = function(){
+                            direccion = mapaService.edge.getDirection($scope.arco);
+                            if (direccion === 'horizontal') {
+                                $scope.firstArrow = 'top';
+                                $scope.secondArrow = 'bottom';
+                            }else{
+                                $scope.firstArrow = 'left';
+                                $scope.secondArrow = 'right';
+                            }
+                            return direccion;
+                        };
+                    }
+                ]
+            };
+        }
+    ])
 ;
 
 (function(angular){
 
     angular.module('localizacionServicio', ['mapaRecorrido.templates'])
-        .factory('LocalizacionServicio', [
-            '$http',
-            function($http){
-                var urlServicios;
-                getListado = function(){
-                    return $http({
-                        method: 'GET',
-                        url: urlServicios
-                    });
-                };
-
-                setUrl = function(url){
-                    urlServicios = url;
-                };
-
-                return {
-                    setUrl: setUrl,
-                    getListado: getListado
-                };
-            }
-        ])
 
         .directive('servicioSelect',[
-            'LocalizacionServicio', '$filter',
-            function(Localizacion, $filter){
+            '$filter',
+            function($filter){
                 return {
                     restrict: 'E',
                     templateUrl: 'template/selectServicio.tpl.html',
                     replace: true,
                     scope: {
                         lugar: '=lugar',
-                        direccion: '@direccion'
+                        categorias: '=listado',
+                        direccion: '@direccion',
                     },
                     controller: ['$scope',
                         function($scope){
-                            $scope.categorias = [];
-                            $scope.servicios = [];
-
+                            $scope.servicios = $filter('filter')($scope.categorias, {id: $scope.lugar.idCategoria })[0].items;
                             $scope.updateServicios = function(){
                                 var result = $filter('filter')($scope.categorias, {id: $scope.lugar.idCategoria });
                                 if (result.length > 0) {
@@ -727,19 +765,6 @@ angular.module('mapaRecorrido',['dijkstras-service'])
                                 $scope.lugar.categoria = $filter('filter')($scope.categorias, {id: $scope.lugar.idCategoria })[0].nombre;
                                 $scope.lugar.servicio = $filter('filter')($scope.servicios, {id: $scope.lugar.idServicio })[0].nombre;
                             };
-
-                            $scope.updateCategorias = function(){
-                                Localizacion.getListado().then(function success(resp){
-                                    $scope.categorias = resp.data;
-                                    $scope.updateServicios();
-                                }, function errorCallback(err){
-                                });
-                            };
-
-                            if ($scope.lugar) {
-                                $scope.updateCategorias();
-                                $scope.updateServicios();
-                            }
                         }
                     ]
                 };

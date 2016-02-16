@@ -27,4 +27,37 @@ angular.module('mapaRecorrido',['dijkstras-service'])
             };
         }
     ])
+    .directive('agregarServicio',[
+        'mapaService',
+        function(mapaService){
+            return {
+                restrict: 'E',
+                templateUrl: 'template/guiAgregarServicio.tpl.html',
+                replace: true,
+                scope: {
+                    arco: '=arco',
+                    listadoServicios: '=listadoServicios'
+                },
+                controller: ['$scope',
+                    function($scope){
+                        $scope.listadoServicios.success(function(data){
+                            $scope.categorias = data;
+                        });
+
+                        $scope.getDireccion = function(){
+                            direccion = mapaService.edge.getDirection($scope.arco);
+                            if (direccion === 'horizontal') {
+                                $scope.firstArrow = 'top';
+                                $scope.secondArrow = 'bottom';
+                            }else{
+                                $scope.firstArrow = 'left';
+                                $scope.secondArrow = 'right';
+                            }
+                            return direccion;
+                        };
+                    }
+                ]
+            };
+        }
+    ])
 ;

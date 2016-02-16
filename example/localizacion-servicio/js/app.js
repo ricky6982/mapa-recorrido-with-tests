@@ -1,14 +1,12 @@
 var app = angular.module('app', ['mapaRecorrido', 'localizacionServicio']);
 
 app.controller('AppCtrl', [
-    '$scope', 'LocalizacionServicio',
-    function($scope, LocalizacionServicio){
+    '$scope',
+    function($scope){
         $scope.items = [];
         $scope.crearItem = function(){
             $scope.items.push(1);
         };
-
-        LocalizacionServicio.setUrl('http://localhost/tesisApp/web/app_dev.php/Admin/api/servicios.json');
 
         $scope.lugar = {
             idCategoria: 1,
