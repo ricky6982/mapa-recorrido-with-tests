@@ -53,26 +53,19 @@ angular.module('mapaRecorrido',['dijkstras-service'])
                             console.log('Eliminando localización de servicio (' + direccion + '): ' + index);
                         };
 
-                        // $scope.agregarServicio = function(direccion){
-                        //     var newItem = {
-                        //         idCategoria: null,
-                        //         idServicio: null,
-                        //         categoria: null,
-                        //         servicio: null,
-                        //         distancia: null
-                        //     };
+                        $scope.agregar = function(direccion){
 
-                        //     if (typeof $scope.arco.lugares === "undefined") {
-                        //         $scope.arco.lugares = {"izq": [], "der": []};
-                        //     }
+                            if (typeof $scope.arco.lugares === "undefined") {
+                                $scope.arco.lugares = {"izq": [], "der": []};
+                            }
 
-                        //     switch (direccion){
-                        //         case 'izq': $scope.arco.lugares.izq.push(angular.copy(newItem));
-                        //             break;
-                        //         case 'der': $scope.arco.lugares.der.push(newItem);
-                        //             break;
-                        //     }
-                        // };
+                            switch (direccion){
+                                case 'izq': $scope.arco.lugares.izq.push({});
+                                    break;
+                                case 'der': $scope.arco.lugares.der.push({});
+                                    break;
+                            }
+                        };
 
                         $scope.getDireccion = function(){
                             direccion = mapaService.edge.getDirection($scope.arco);

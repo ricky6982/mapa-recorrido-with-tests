@@ -6,10 +6,10 @@ angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache"
     "<div class=\"localizacion-servicio {{ getDireccion() }}\">\n" +
     "  <div class=\"panel-first\">\n" +
     "    <div ng-repeat=\"item in arco.lugares.izq track by $index\">\n" +
-    "      <servicio-select direccion=\"{{ firstArrow }}\" lugar=\"item\" listado=\"categorias\" remove=\"remove('izq', $index)\"></servicio-select>\n" +
+    "      <servicio-select direccion=\"{{ firstArrow }}\" lugar=\"item\" categorias=\"categorias\" remove=\"remove('izq', $index)\"></servicio-select>\n" +
     "    </div>\n" +
     "    <div style=\"margin: 50px 15px;\">\n" +
-    "      <button class=\"btn btn-success btn-lg\">Agregar Servicio</button>\n" +
+    "      <button class=\"btn btn-success btn-lg\" ng-click=\"agregar('izq')\">Agregar Servicio</button>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"panel-edge\">\n" +
@@ -19,10 +19,10 @@ angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache"
     "  </div>\n" +
     "  <div class=\"panel-second\">\n" +
     "    <div ng-repeat=\"item in arco.lugares.der track by $index\">\n" +
-    "      <servicio-select direccion=\"{{ secondArrow }}\" lugar=\"item\" listado=\"categorias\" remove=\"remove('der', $index)\"></servicio-select>\n" +
+    "      <servicio-select direccion=\"{{ secondArrow }}\" lugar=\"item\" categorias=\"categorias\" remove=\"remove('der', $index)\"></servicio-select>\n" +
     "    </div>\n" +
     "    <div style=\"margin: 50px 15px;\">\n" +
-    "      <button class=\"btn btn-success btn-lg\">Agregar Servicio</button>\n" +
+    "      <button class=\"btn btn-success btn-lg\" ng-click=\"agregar('der')\">Agregar Servicio</button>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
@@ -43,12 +43,12 @@ angular.module("template/selectServicio.tpl.html", []).run(["$templateCache", fu
     "              </select>\n" +
     "            </div>\n" +
     "            <div class=\"form-group\">\n" +
-    "              <select ng-model=\"lugar.idServicio\" class=\"form-control input-sm\" ng-chage=\"udpatePropiedades()\">\n" +
+    "              <select ng-model=\"lugar.idServicio\" class=\"form-control input-sm\" ng-change=\"updatePropiedades()\">\n" +
     "                <option ng-repeat=\"serv in servicios\" value=\"{{ serv.id }}\">{{ serv.nombre }}</option>\n" +
     "              </select>\n" +
     "            </div>\n" +
     "            <div class=\"form-group\">\n" +
-    "              <input type=\"text\" ng-model=\"lugar.distancia\" ng-change=\"\" class=\"form-control input-sm\" placeholder=\"Distancia\">\n" +
+    "              <input type=\"text\" ng-model=\"lugar.distancia\" ng-change=\"updatePropiedades()\" class=\"form-control input-sm\" placeholder=\"Distancia\">\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +

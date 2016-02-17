@@ -171,10 +171,10 @@ angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache"
     "<div class=\"localizacion-servicio {{ getDireccion() }}\">\n" +
     "  <div class=\"panel-first\">\n" +
     "    <div ng-repeat=\"item in arco.lugares.izq track by $index\">\n" +
-    "      <servicio-select direccion=\"{{ firstArrow }}\" lugar=\"item\" listado=\"categorias\" remove=\"remove('izq', $index)\"></servicio-select>\n" +
+    "      <servicio-select direccion=\"{{ firstArrow }}\" lugar=\"item\" categorias=\"categorias\" remove=\"remove('izq', $index)\"></servicio-select>\n" +
     "    </div>\n" +
     "    <div style=\"margin: 50px 15px;\">\n" +
-    "      <button class=\"btn btn-success btn-lg\">Agregar Servicio</button>\n" +
+    "      <button class=\"btn btn-success btn-lg\" ng-click=\"agregar('izq')\">Agregar Servicio</button>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"panel-edge\">\n" +
@@ -184,10 +184,10 @@ angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache"
     "  </div>\n" +
     "  <div class=\"panel-second\">\n" +
     "    <div ng-repeat=\"item in arco.lugares.der track by $index\">\n" +
-    "      <servicio-select direccion=\"{{ secondArrow }}\" lugar=\"item\" listado=\"categorias\" remove=\"remove('der', $index)\"></servicio-select>\n" +
+    "      <servicio-select direccion=\"{{ secondArrow }}\" lugar=\"item\" categorias=\"categorias\" remove=\"remove('der', $index)\"></servicio-select>\n" +
     "    </div>\n" +
     "    <div style=\"margin: 50px 15px;\">\n" +
-    "      <button class=\"btn btn-success btn-lg\">Agregar Servicio</button>\n" +
+    "      <button class=\"btn btn-success btn-lg\" ng-click=\"agregar('der')\">Agregar Servicio</button>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
@@ -208,12 +208,12 @@ angular.module("template/selectServicio.tpl.html", []).run(["$templateCache", fu
     "              </select>\n" +
     "            </div>\n" +
     "            <div class=\"form-group\">\n" +
-    "              <select ng-model=\"lugar.idServicio\" class=\"form-control input-sm\" ng-chage=\"udpatePropiedades()\">\n" +
+    "              <select ng-model=\"lugar.idServicio\" class=\"form-control input-sm\" ng-change=\"updatePropiedades()\">\n" +
     "                <option ng-repeat=\"serv in servicios\" value=\"{{ serv.id }}\">{{ serv.nombre }}</option>\n" +
     "              </select>\n" +
     "            </div>\n" +
     "            <div class=\"form-group\">\n" +
-    "              <input type=\"text\" ng-model=\"lugar.distancia\" ng-change=\"\" class=\"form-control input-sm\" placeholder=\"Distancia\">\n" +
+    "              <input type=\"text\" ng-model=\"lugar.distancia\" ng-change=\"updatePropiedades()\" class=\"form-control input-sm\" placeholder=\"Distancia\">\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -733,26 +733,19 @@ angular.module('mapaRecorrido',['dijkstras-service'])
                             console.log('Eliminando localización de servicio (' + direccion + '): ' + index);
                         };
 
-                        // $scope.agregarServicio = function(direccion){
-                        //     var newItem = {
-                        //         idCategoria: null,
-                        //         idServicio: null,
-                        //         categoria: null,
-                        //         servicio: null,
-                        //         distancia: null
-                        //     };
+                        $scope.agregar = function(direccion){
 
-                        //     if (typeof $scope.arco.lugares === "undefined") {
-                        //         $scope.arco.lugares = {"izq": [], "der": []};
-                        //     }
+                            if (typeof $scope.arco.lugares === "undefined") {
+                                $scope.arco.lugares = {"izq": [], "der": []};
+                            }
 
-                        //     switch (direccion){
-                        //         case 'izq': $scope.arco.lugares.izq.push(angular.copy(newItem));
-                        //             break;
-                        //         case 'der': $scope.arco.lugares.der.push(newItem);
-                        //             break;
-                        //     }
-                        // };
+                            switch (direccion){
+                                case 'izq': $scope.arco.lugares.izq.push({});
+                                    break;
+                                case 'der': $scope.arco.lugares.der.push({});
+                                    break;
+                            }
+                        };
 
                         $scope.getDireccion = function(){
                             direccion = mapaService.edge.getDirection($scope.arco);
@@ -785,13 +778,14 @@ angular.module('mapaRecorrido',['dijkstras-service'])
                     replace: true,
                     scope: {
                         lugar: '=lugar',
-                        categorias: '=listado',
+                        categorias: '=categorias',
                         direccion: '@direccion',
                         remove: '&remove'
                     },
                     controller: ['$scope',
                         function($scope){
                             $scope.servicios = $filter('filter')($scope.categorias, {id: $scope.lugar.idCategoria })[0].items;
+
                             $scope.updateServicios = function(){
                                 var result = $filter('filter')($scope.categorias, {id: $scope.lugar.idCategoria });
                                 if (result.length > 0) {
@@ -800,6 +794,7 @@ angular.module('mapaRecorrido',['dijkstras-service'])
                             };
 
                             $scope.updatePropiedades = function(){
+                                console.log($filter('filter')($scope.categorias, {id: $scope.lugar.idCategoria }));
                                 $scope.lugar.categoria = $filter('filter')($scope.categorias, {id: $scope.lugar.idCategoria })[0].nombre;
                                 $scope.lugar.servicio = $filter('filter')($scope.servicios, {id: $scope.lugar.idServicio })[0].nombre;
                             };
