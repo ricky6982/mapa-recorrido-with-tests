@@ -13,6 +13,7 @@
                         lugar: '=lugar',
                         categorias: '=listado',
                         direccion: '@direccion',
+                        remove: '&remove'
                     },
                     controller: ['$scope',
                         function($scope){

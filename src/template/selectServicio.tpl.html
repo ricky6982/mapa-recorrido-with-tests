@@ -2,6 +2,7 @@
     <div class="arrow"></div>
     <div class="popover-content">
         <div>
+            <button class="btn btn-xs btn-danger" style="position: absolute; right: -20px; top: -20px;" ng-click="remove()">X</button>
             <div class="form-group">
               <select ng-model="lugar.idCategoria" class="form-control input-sm" ng-change="updateServicios()">
                 <option ng-repeat="categ in categorias" value="{{ categ.id }}">{{ categ.nombre }}</option>

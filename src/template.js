@@ -6,7 +6,10 @@ angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache"
     "<div class=\"localizacion-servicio {{ getDireccion() }}\">\n" +
     "  <div class=\"panel-first\">\n" +
     "    <div ng-repeat=\"item in arco.lugares.izq track by $index\">\n" +
-    "      <servicio-select direccion=\"{{ firstArrow }}\" lugar=\"item\" listado=\"categorias\"></servicio-select>\n" +
+    "      <servicio-select direccion=\"{{ firstArrow }}\" lugar=\"item\" listado=\"categorias\" remove=\"remove('izq', $index)\"></servicio-select>\n" +
+    "    </div>\n" +
+    "    <div style=\"margin: 50px 15px;\">\n" +
+    "      <button class=\"btn btn-success btn-lg\">Agregar Servicio</button>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"panel-edge\">\n" +
@@ -16,7 +19,10 @@ angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache"
     "  </div>\n" +
     "  <div class=\"panel-second\">\n" +
     "    <div ng-repeat=\"item in arco.lugares.der track by $index\">\n" +
-    "      <servicio-select direccion=\"{{ secondArrow }}\" lugar=\"item\" listado=\"categorias\"></servicio-select>\n" +
+    "      <servicio-select direccion=\"{{ secondArrow }}\" lugar=\"item\" listado=\"categorias\" remove=\"remove('der', $index)\"></servicio-select>\n" +
+    "    </div>\n" +
+    "    <div style=\"margin: 50px 15px;\">\n" +
+    "      <button class=\"btn btn-success btn-lg\">Agregar Servicio</button>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
@@ -30,6 +36,7 @@ angular.module("template/selectServicio.tpl.html", []).run(["$templateCache", fu
     "    <div class=\"arrow\"></div>\n" +
     "    <div class=\"popover-content\">\n" +
     "        <div>\n" +
+    "            <button class=\"btn btn-xs btn-danger\" style=\"position: absolute; right: -20px; top: -20px;\" ng-click=\"remove()\">X</button>\n" +
     "            <div class=\"form-group\">\n" +
     "              <select ng-model=\"lugar.idCategoria\" class=\"form-control input-sm\" ng-change=\"updateServicios()\">\n" +
     "                <option ng-repeat=\"categ in categorias\" value=\"{{ categ.id }}\">{{ categ.nombre }}</option>\n" +

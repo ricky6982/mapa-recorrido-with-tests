@@ -27,8 +27,7 @@ angular.module('mapaRecorrido',['dijkstras-service'])
             };
         }
     ])
-    .directive('agregarServicio',[
-        'mapaService',
+    .directive('agregarServicio',['mapaService',
         function(mapaService){
             return {
                 restrict: 'E',
@@ -36,13 +35,44 @@ angular.module('mapaRecorrido',['dijkstras-service'])
                 replace: true,
                 scope: {
                     arco: '=arco',
-                    listadoServicios: '=listadoServicios'
+                    listadoServicios: '=listadoServicios',
                 },
                 controller: ['$scope',
                     function($scope){
                         $scope.listadoServicios.success(function(data){
                             $scope.categorias = data;
                         });
+
+                        $scope.remove = function(direccion, index){
+                            switch (direccion){
+                                case 'izq': $scope.arco.lugares.izq.splice(index, 1);
+                                    break;
+                                case 'der': $scope.arco.lugares.der.splice(index, 1);
+                                    break;
+                            }
+                            console.log('Eliminando localización de servicio (' + direccion + '): ' + index);
+                        };
+
+                        // $scope.agregarServicio = function(direccion){
+                        //     var newItem = {
+                        //         idCategoria: null,
+                        //         idServicio: null,
+                        //         categoria: null,
+                        //         servicio: null,
+                        //         distancia: null
+                        //     };
+
+                        //     if (typeof $scope.arco.lugares === "undefined") {
+                        //         $scope.arco.lugares = {"izq": [], "der": []};
+                        //     }
+
+                        //     switch (direccion){
+                        //         case 'izq': $scope.arco.lugares.izq.push(angular.copy(newItem));
+                        //             break;
+                        //         case 'der': $scope.arco.lugares.der.push(newItem);
+                        //             break;
+                        //     }
+                        // };
 
                         $scope.getDireccion = function(){
                             direccion = mapaService.edge.getDirection($scope.arco);
