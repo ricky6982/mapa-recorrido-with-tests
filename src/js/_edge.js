@@ -66,5 +66,25 @@ _edge = {
                 return 'vertical';
             }
         }
+    },
+    getDirectionNodes: function(arco, direccion){
+        nf = _node.get(arco.from);
+        nt = _node.get(arco.to);
+        switch (direccion){
+            case 'horizontal':
+                if (nf.x < nt.x) {
+                    return 'directa';
+                }else{
+                    return 'inversa';
+                }
+                break;
+            case 'vertical':
+                if (nf.y < nt.y) {
+                    return 'directa';
+                }else{
+                    return 'inversa';
+                }
+                break;
+        }
     }
 };
