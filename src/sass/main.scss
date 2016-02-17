@@ -2,7 +2,7 @@
     box-sizing: border-box;
     height: 400px;
     display: inline-block;
-    padding: 15px;
+    padding: 25px;
 }
 @mixin panels-horizontal(){
     box-sizing: border-box;
@@ -89,13 +89,13 @@
         >.panel-first{
             @include panels-vertical;
             overflow-y: scroll;
-            min-width: 250px;
+            min-width: 30px;
             direction: rtl;
         }
         >.panel-second{
             @include panels-vertical;
             overflow-y: scroll;
-            min-width: 250px;
+            min-width: 30px;
         }
         >.panel-edge{
             @include panels-vertical;

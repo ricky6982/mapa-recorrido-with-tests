@@ -69,22 +69,22 @@
       box-sizing: border-box;
       height: 400px;
       display: inline-block;
-      padding: 15px;
+      padding: 25px;
       overflow-y: scroll;
-      min-width: 250px;
+      min-width: 30px;
       direction: rtl; }
     .localizacion-servicio.vertical > .panel-second {
       box-sizing: border-box;
       height: 400px;
       display: inline-block;
-      padding: 15px;
+      padding: 25px;
       overflow-y: scroll;
-      min-width: 250px; }
+      min-width: 30px; }
     .localizacion-servicio.vertical > .panel-edge {
       box-sizing: border-box;
       height: 400px;
       display: inline-block;
-      padding: 15px;
+      padding: 25px;
       width: 50px;
       position: relative;
       padding: 0;
