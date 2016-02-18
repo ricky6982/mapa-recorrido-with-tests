@@ -98,8 +98,8 @@ app.controller('AppCtrl', [
         };
 
         $scope.calcularDistancia = function(){
-            console.log(mapa.path.shortest(1,3));
-            console.log(mapa.path.distancia(mapa.path.shortest(1,3)));
+            console.log(mapa.path.shortest(8,6));
+            console.log(mapa.path.distancia(mapa.path.shortest(8,6)));
         };
 
         $scope.cambiarColorArco = function(){

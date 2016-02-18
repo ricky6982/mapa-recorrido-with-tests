@@ -276,8 +276,9 @@ function init(divContainer){
      opacity:1.0
  };
 
-// Validación del estado de un arco
+// Validación del estado de un arco y Normalización de arcos respecto a la posición de sus nodos
 function validarEstado(arco){
+    // Validación del Estado del arco.
     if (typeof arco.infRef != "undefined" && typeof arco.label != "undefined") {
         if (arco.infRef.length > 0 && !isNaN(parseFloat(arco.label))) {
             arco.color = arcoSuccess;
@@ -286,6 +287,25 @@ function validarEstado(arco){
         }
     }else{
         arco.color = arcoWarning;
+    }
+    // Normalización de la dirección del arco respecto la posición de sus nodos
+    // 
+    // Arcos en posición Horizontal:
+    //      (1)<--------(2)  ====Normalizando====>    (1)-------->(2)
+    // 
+    // Arcos en posición Vertical:
+    //      (1)                                 (1)
+    //       ^                                   | 
+    //       |                                   | 
+    //       |        ====Normalizando=====>     |
+    //       |                                   | 
+    //       |                                   V 
+    //      (4)                                 (4)
+    direccion = _edge.getDirection(arco);
+    if (_edge.getDirectionNodes(arco, direccion) === 'inversa') {
+        var aux = arco.from;
+        arco.from = arco.to;
+        arco.to = aux;
     }
 }
 
