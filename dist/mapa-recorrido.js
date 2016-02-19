@@ -163,7 +163,7 @@ function Graph(){
 
 }(angular));
 
-angular.module('mapaRecorrido.templates', ['template/guiAgregarServicio.tpl.html', 'template/selectServicio.tpl.html']);
+angular.module('mapaRecorrido.templates', ['template/guiAgregarServicio.tpl.html', 'template/saveButton.tpl.html', 'template/selectServicio.tpl.html']);
 
 angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/guiAgregarServicio.tpl.html",
@@ -193,6 +193,14 @@ angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache"
     "</div>\n" +
     "</div>\n" +
     "");
+}]);
+
+angular.module("template/saveButton.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/saveButton.tpl.html",
+    "<button ng-disabled='flag' ng-click='submit()'>\n" +
+    "    {{ label }}\n" +
+    "    <i class='glyphicon glyphicon-refresh spinning' ng-show='flag'></i>\n" +
+    "</button>");
 }]);
 
 angular.module("template/selectServicio.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -475,20 +483,16 @@ remote = {
     },
     saveMap: function(){
         if (remote.getUrlSave() !== "") {
-            _$http({
+            return _$http({
                 url: remote.getUrlSave(),
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 data: _data
-            })
-            .success(function(data, status){
-                console.log('Se guardo el mapa correctamente.');
-            })
-            .error(function(err){
-                console.log('No se pudo guardar el mapa.');
             });
+        }else{
+            console.log('No se establecio la Url para guardar el mapa');
         }
     }
 };
@@ -797,6 +801,36 @@ angular.module('mapaRecorrido',['dijkstras-service'])
                                 $scope.secondArrow = 'right';
                             }
                             return direccion;
+                        };
+                    }
+                ]
+            };
+        }
+    ])
+    .directive('saveButton',['mapaService',
+        function(mapaService){
+            return{
+                restrict: 'E',
+                replace: true,
+                templateUrl: 'template/saveButton.tpl.html',
+                scope: {
+                    label: '@',
+                },
+                controller: ['$scope',
+                    function($scope){
+                        $scope.flag = false;
+                        $scope.submit = function(){
+                            $scope.flag = true;
+                            guardando = mapaService.remote.saveMap();
+                            guardando.then(
+                                function(){
+                                    console.log('Se guardo el mapa');
+                                }, function(){
+                                    console.log('No se pudo guardar el mapa.');
+                                }
+                            ).finally(function(){
+                                    $scope.flag = false;
+                            });
                         };
                     }
                 ]

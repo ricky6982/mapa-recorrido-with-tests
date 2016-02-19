@@ -1,4 +1,4 @@
-angular.module('mapaRecorrido.templates', ['template/guiAgregarServicio.tpl.html', 'template/selectServicio.tpl.html']);
+angular.module('mapaRecorrido.templates', ['template/guiAgregarServicio.tpl.html', 'template/saveButton.tpl.html', 'template/selectServicio.tpl.html']);
 
 angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/guiAgregarServicio.tpl.html",
@@ -28,6 +28,14 @@ angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache"
     "</div>\n" +
     "</div>\n" +
     "");
+}]);
+
+angular.module("template/saveButton.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/saveButton.tpl.html",
+    "<button ng-disabled='flag' ng-click='submit()'>\n" +
+    "    {{ label }}\n" +
+    "    <i class='glyphicon glyphicon-refresh spinning' ng-show='flag'></i>\n" +
+    "</button>");
 }]);
 
 angular.module("template/selectServicio.tpl.html", []).run(["$templateCache", function($templateCache) {

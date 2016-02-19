@@ -39,20 +39,16 @@ remote = {
     },
     saveMap: function(){
         if (remote.getUrlSave() !== "") {
-            _$http({
+            return _$http({
                 url: remote.getUrlSave(),
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 data: _data
-            })
-            .success(function(data, status){
-                console.log('Se guardo el mapa correctamente.');
-            })
-            .error(function(err){
-                console.log('No se pudo guardar el mapa.');
             });
+        }else{
+            console.log('No se establecio la Url para guardar el mapa');
         }
     }
 };

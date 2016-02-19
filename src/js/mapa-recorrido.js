@@ -83,4 +83,34 @@ angular.module('mapaRecorrido',['dijkstras-service'])
             };
         }
     ])
+    .directive('saveButton',['mapaService',
+        function(mapaService){
+            return{
+                restrict: 'E',
+                replace: true,
+                templateUrl: 'template/saveButton.tpl.html',
+                scope: {
+                    label: '@',
+                },
+                controller: ['$scope',
+                    function($scope){
+                        $scope.flag = false;
+                        $scope.submit = function(){
+                            $scope.flag = true;
+                            guardando = mapaService.remote.saveMap();
+                            guardando.then(
+                                function(){
+                                    console.log('Se guardo el mapa');
+                                }, function(){
+                                    console.log('No se pudo guardar el mapa.');
+                                }
+                            ).finally(function(){
+                                    $scope.flag = false;
+                            });
+                        };
+                    }
+                ]
+            };
+        }
+    ])
 ;

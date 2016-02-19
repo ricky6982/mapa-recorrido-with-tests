@@ -17,11 +17,7 @@ app.controller('AppCtrl', [
 
         mapa.remote.setUrlMap("http://localhost/mapa-recorrido/example/mapa.json");
         mapa.remote.getMap();
-
-        $scope.saveMapa = function(){
-            mapa.remote.setUrlSave('http://localhost/tesisApp/web/app_dev.php/Admin/MapaDeRecorridos/save');
-            mapa.remote.saveMap();
-        };
+        mapa.remote.setUrlSave('http://localhost/tesisApp/web/app_dev.php/Admin/MapaDeRecorridos/save');
 
         var n = 100;
         $scope.toggleAnimacion = function(){
