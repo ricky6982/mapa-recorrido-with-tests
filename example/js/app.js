@@ -15,7 +15,7 @@ app.controller('AppCtrl', [
             url: urlListadoServicios
         });
 
-        mapa.remote.setUrlMap("http://localhost/mapa-recorrido/example/mapa.json");
+        mapa.remote.setUrlMap("http://localhost/tesisApp/web/app_dev.php/Admin/MapaDeRecorridos/getCurrent");
         mapa.remote.getMap();
         mapa.remote.setUrlSave('http://localhost/tesisApp/web/app_dev.php/Admin/MapaDeRecorridos/save');
 
@@ -77,6 +77,9 @@ app.controller('AppCtrl', [
             mapa.edge.update($scope.arcoSeleccionado);
         };
 
+        $scope.refreshConexiones = function(){
+            mapa.node.refreshConexiones();
+        };
         $scope.updateOrientacion = function(){
             mapa.node.updateOrientacion($scope.nodoSeleccionado);
         };

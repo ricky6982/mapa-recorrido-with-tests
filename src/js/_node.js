@@ -32,6 +32,32 @@ _node = {
     update: function(n){
         _nodes.update(n);
     },
+    refreshConexiones: function(){
+        allNodes = _node.get(); // obteniendo todos los nodos
+        angular.forEach(allNodes, function(nodo){
+            if (typeof nodo.conexiones === 'undefined') {
+                nodo.conexiones = {};
+            }
+
+            nodosConectados = _network.getConnectedNodes(nodo.id);
+            angular.forEach(nodosConectados, function(value){
+                if (typeof nodo.conexiones[value] === 'undefined') {
+                    nodo.conexiones[value] = '';
+                }
+            });
+
+            nodosAEliminar = [];
+            angular.forEach(nodo.conexiones, function(value, key){
+                if ($.inArray(parseInt(key,10), nodosConectados) === -1) {
+                    nodosAEliminar.push(key);
+                }
+            });
+            angular.forEach(nodosAEliminar, function(value){
+                delete nodo.conexiones[value];
+            });
+            _nodes.update(nodo);
+        });
+    },
     updateOrientacion: function(nodo){
         if (typeof nodo.conexiones != "undefined") {
             angular.forEach(nodo.conexiones, function(value, key){
@@ -43,6 +69,7 @@ _node = {
                 _nodes.update(nodoVecino);
             });
         }
+
         _nodes.update(nodo);
     },
     validarOrientacion: function(){

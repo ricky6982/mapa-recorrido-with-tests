@@ -143,6 +143,8 @@ function direccionInversa(direccion){
             return 'abj';
         case 'abj':
             return 'arr';
+        default:
+            return '';
     }
 }
 
