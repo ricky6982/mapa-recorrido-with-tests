@@ -592,14 +592,14 @@ _node = {
                     // debe tener una conexión al nodo 1 con dirección izquierda.
                     angular.forEach(elem.conexiones, function(value, key){
                         var nodoVecino = _nodes.get(key);
-                        if (nodoVecino.conexiones[elem.id] != direccionInversa(value)) {
+                        if (nodoVecino.conexiones[elem.id] === direccionInversa(value) && direccionInversa(value) !== '') {
+                            elem.color = nodoSuccess;
+                            _node.update(elem);
+                        }else{
                             console.log('La orientación entre los nodos ' + elem.id + ' y ' + key + ' no es la correcta.');
                             elem.color = nodoWarning;
                             _node.update(elem);
                             flag = false;
-                        }else{
-                            elem.color = nodoSuccess;
-                            _node.update(elem);
                         }
                     });
                 }
