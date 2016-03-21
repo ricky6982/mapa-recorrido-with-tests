@@ -9,7 +9,7 @@ angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache"
     "      <servicio-select direccion=\"{{ firstArrow }}\" lugar=\"item\" categorias=\"categorias\" remove=\"remove('izq', $index)\"></servicio-select>\n" +
     "    </div>\n" +
     "    <div style=\"margin: 50px 15px;\">\n" +
-    "      <button class=\"btn btn-success btn-lg\" ng-click=\"agregar('izq')\">Agregar Servicio</button>\n" +
+    "      <button class=\"btn btn-success\" ng-click=\"agregar('izq')\">Agregar Servicio</button>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"panel-edge\">\n" +
@@ -22,7 +22,7 @@ angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache"
     "      <servicio-select direccion=\"{{ secondArrow }}\" lugar=\"item\" categorias=\"categorias\" remove=\"remove('der', $index)\"></servicio-select>\n" +
     "    </div>\n" +
     "    <div style=\"margin: 50px 15px;\">\n" +
-    "      <button class=\"btn btn-success btn-lg\" ng-click=\"agregar('der')\">Agregar Servicio</button>\n" +
+    "      <button class=\"btn btn-success\" ng-click=\"agregar('der')\">Agregar Servicio</button>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
