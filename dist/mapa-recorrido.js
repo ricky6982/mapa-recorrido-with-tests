@@ -850,6 +850,7 @@ angular.module('mapaRecorrido',['dijkstras-service'])
                         $scope.flag = false;
                         $scope.submit = function(){
                             $scope.flag = true;
+                            mapaService.savePositions();
                             guardando = mapaService.remote.saveMap();
                             guardando.then(
                                 function(){
