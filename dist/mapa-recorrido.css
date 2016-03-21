@@ -34,8 +34,11 @@
     .localizacion-servicio.horizontal > .panel-edge .arco {
       background-color: #F5CC49;
       border-radius: 4px;
-      margin: 15px;
+      color: white;
       height: 20px;
+      margin: 15px;
+      text-align: center;
+      text-shadow: 0 0 2px black;
       width: 20px;
       width: 97%; }
       .localizacion-servicio.horizontal > .panel-edge .arco.primary {
@@ -92,8 +95,11 @@
       .localizacion-servicio.vertical > .panel-edge .arco {
         background-color: #F5CC49;
         border-radius: 4px;
-        margin: 15px;
+        color: white;
         height: 20px;
+        margin: 15px;
+        text-align: center;
+        text-shadow: 0 0 2px black;
         width: 20px;
         height: 93%;
         position: absolute; }
@@ -106,6 +112,11 @@
         .localizacion-servicio.vertical > .panel-edge .arco.warning {
           background-color: #f0ad4e;
           border-color: #eea236; }
+        .localizacion-servicio.vertical > .panel-edge .arco p {
+          transform: rotate(90deg) translate(-35px, -10px);
+          transform-origin: left;
+          margin-top: 150px;
+          width: 113px; }
       .localizacion-servicio.vertical > .panel-edge .nodo1, .localizacion-servicio.vertical > .panel-edge .nodo2 {
         background-color: white;
         border-radius: 50%;

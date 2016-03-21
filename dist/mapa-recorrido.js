@@ -178,7 +178,7 @@ angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache"
     "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"panel-edge\">\n" +
-    "    <div class=\"arco\"></div>\n" +
+    "    <div class=\"arco\"><p>{{ arco.distancia }} metros</p></div>\n" +
     "    <div class=\"nodo1\">{{ arco.from }}</div>\n" +
     "    <div class=\"nodo2\">{{ arco.to }}</div>\n" +
     "  </div>\n" +

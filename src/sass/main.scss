@@ -17,8 +17,11 @@
 @mixin arco{
     background-color: #F5CC49;
     border-radius: 4px;
-    margin: 15px;
+    color: white;
     height: 20px;
+    margin: 15px;
+    text-align: center;
+    text-shadow: 0 0 2px black;
     width: 20px;
     &.primary{
         background-color: #337ab7;
@@ -107,6 +110,12 @@
                 @include arco;
                 height: 93%;
                 position: absolute;
+                p{
+                    transform: rotate(90deg) translate(-35px, -10px);
+                    transform-origin: left;
+                    margin-top: 150px;
+                    width: 113px;
+                }
             }
             .nodo1, .nodo2{
                 @include nodo;
