@@ -9,7 +9,7 @@
     width: 100%;
     white-space: nowrap;
     overflow-x: scroll;
-    min-height: 220px; }
+    min-height: 190px; }
     .localizacion-servicio.horizontal > .panel-first > div {
       display: inline-block;
       margin-left: 20px; }
@@ -18,7 +18,7 @@
     width: 100%;
     white-space: nowrap;
     overflow-x: scroll;
-    min-height: 220px; }
+    min-height: 190px; }
     .localizacion-servicio.horizontal > .panel-second > div {
       display: inline-block;
       margin-left: 20px; }
@@ -74,8 +74,7 @@
       display: inline-block;
       padding: 25px;
       overflow-y: scroll;
-      min-width: 30px;
-      direction: rtl; }
+      min-width: 30px; }
     .localizacion-servicio.vertical > .panel-second {
       box-sizing: border-box;
       height: 380px;

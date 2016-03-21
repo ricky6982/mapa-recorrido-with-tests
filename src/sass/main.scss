@@ -59,12 +59,12 @@
         >.panel-first{
             @include panels-horizontal;
             overflow-x: scroll;
-            min-height: 220px;
+            min-height: 190px;
         }
         >.panel-second{
             @include panels-horizontal;
             overflow-x: scroll;
-            min-height: 220px;
+            min-height: 190px;
         }
         >.panel-edge{
             @include panels-horizontal;
@@ -93,7 +93,6 @@
             @include panels-vertical;
             overflow-y: scroll;
             min-width: 30px;
-            direction: rtl;
         }
         >.panel-second{
             @include panels-vertical;

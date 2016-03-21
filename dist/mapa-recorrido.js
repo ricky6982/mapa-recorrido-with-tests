@@ -210,18 +210,21 @@ angular.module("template/selectServicio.tpl.html", []).run(["$templateCache", fu
     "    <div class=\"popover-content\">\n" +
     "        <div>\n" +
     "            <button class=\"btn btn-xs btn-danger\" style=\"position: absolute; right: -20px; top: -20px;\" ng-click=\"remove()\">X</button>\n" +
-    "            <div class=\"form-group\">\n" +
+    "            <div style=\"margin-bottom: 5px;\">\n" +
     "              <select ng-model=\"lugar.idCategoria\" class=\"form-control input-sm\" ng-change=\"updateServicios()\">\n" +
     "                <option ng-repeat=\"categ in categorias\" value=\"{{ categ.id }}\">{{ categ.nombre }}</option>\n" +
     "              </select>\n" +
     "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
+    "            <div style=\"margin-bottom: 5px;\">\n" +
     "              <select ng-model=\"lugar.idServicio\" class=\"form-control input-sm\" ng-change=\"updatePropiedades()\">\n" +
     "                <option ng-repeat=\"serv in servicios\" value=\"{{ serv.id }}\">{{ serv.nombre }}</option>\n" +
     "              </select>\n" +
     "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "              <input type=\"text\" ng-model=\"lugar.distancia\" ng-change=\"updatePropiedades()\" class=\"form-control input-sm\" placeholder=\"Distancia\">\n" +
+    "            <div style=\"margin-bottom: 5px;\">\n" +
+    "              <div class=\"input-group\">\n" +
+    "                <input type=\"text\" ng-model=\"lugar.distancia\" ng-change=\"updatePropiedades()\" class=\"form-control input-sm\" placeholder=\"Distancia\">\n" +
+    "                <span class=\"input-group-addon\" id=\"basic-addon2\">metros</span>\n" +
+    "              </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
