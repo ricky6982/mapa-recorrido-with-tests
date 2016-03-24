@@ -129,7 +129,47 @@ function actualizarConexionOrientacion(id_n1, id_n2){
             }
         }
     }
-    
+}
+
+function contarServicios(e){
+    var total = 0;
+    if (typeof e.lugares !== 'undefined') {
+        total = e.lugares.izq.length + e.lugares.der.length;
+    }
+    return total;
+}
+
+function getNombreServicios(e){
+    var servicios = [];
+    if (typeof e.lugares !== 'undefined') {
+        angular.forEach(e.lugares.izq, function(item){
+            servicios.push(item.servicio);
+        });
+        angular.forEach(e.lugares.der, function(item){
+            servicios.push(item.servicio);
+        });
+    }
+
+    return servicios;
+}
+
+function updateTemplatePopUp(e){
+    if (typeof e.infRef !== 'undefined' && e.infRef !== '') {
+        var template = '<strong>'+ e.infRef +'</strong><br>';
+        var total = contarServicios(e);
+        if (total > 0) {
+            var templateServicios = '';
+            var nombreServicios = getNombreServicios(e);
+            angular.forEach(nombreServicios, function(nombre){
+                templateServicios += '<li>' + nombre + '</li>';
+            });
+            template += '<ol>' + templateServicios + '</ol>'
+            ;
+        }
+        e.title = template;
+    }else{
+        delete e.title;
+    }
 }
 
 // Función para obtener la inversa de una dirección.

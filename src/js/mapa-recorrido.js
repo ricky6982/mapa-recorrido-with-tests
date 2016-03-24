@@ -27,6 +27,9 @@ angular.module('mapaRecorrido',['dijkstras-service'])
             };
         }
     ])
+
+    // Directiva encargada de Mostrar el arco con los servicios a agregar
+    // y almacenar la información en el arco de los servicios asociados. 
     .directive('agregarServicio',['mapaService',
         function(mapaService){
             return {

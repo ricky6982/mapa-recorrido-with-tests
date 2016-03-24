@@ -36,7 +36,9 @@ _edge = {
         _edges.remove(interseccion[0]);
     },
     update: function(e){
+        e.width = 5;
         validarEstado(e);
+        updateTemplatePopUp(e);
         _edges.update(e);
     },
     getSelected: function(){
