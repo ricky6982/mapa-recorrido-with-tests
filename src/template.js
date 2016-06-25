@@ -3,29 +3,56 @@ angular.module('mapaRecorrido.templates', ['template/guiAgregarServicio.tpl.html
 angular.module("template/guiAgregarServicio.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/guiAgregarServicio.tpl.html",
     "<div ng-show=\"arco\">\n" +
-    "<div class=\"localizacion-servicio {{ getDireccion() }}\">\n" +
-    "  <div class=\"panel-first\">\n" +
-    "    <div ng-repeat=\"item in arco.lugares.izq track by $index\">\n" +
-    "      <servicio-select direccion=\"{{ firstArrow }}\" lugar=\"item\" categorias=\"categorias\" remove=\"remove('izq', $index)\"></servicio-select>\n" +
+    "    <div class=\"localizacion-servicio {{ getDireccion() }}\" ng-hide=\"getDireccion() == 'horizontal'\">\n" +
+    "        <div class=\"panel-first\">\n" +
+    "            <div ng-repeat=\"item in arco.lugares.der track by $index\">\n" +
+    "                <servicio-select direccion=\"{{ firstArrow }}\" lugar=\"item\" categorias=\"categorias\"\n" +
+    "                                 remove=\"remove('der', $index)\"></servicio-select>\n" +
+    "            </div>\n" +
+    "            <div style=\"margin: 50px 15px;\">\n" +
+    "                <button class=\"btn btn-success\" ng-click=\"agregar('der')\">Agregar Servicio</button>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "        <div class=\"panel-edge\">\n" +
+    "            <div class=\"arco\"><p>{{ arco.distancia }} metros</p></div>\n" +
+    "            <div class=\"nodo1\">{{ arco.from }}</div>\n" +
+    "            <div class=\"nodo2\">{{ arco.to }}</div>\n" +
+    "        </div>\n" +
+    "        <div class=\"panel-second\">\n" +
+    "            <div ng-repeat=\"item in arco.lugares.izq track by $index\">\n" +
+    "                <servicio-select direccion=\"{{ secondArrow }}\" lugar=\"item\" categorias=\"categorias\"\n" +
+    "                                 remove=\"remove('izq', $index)\"></servicio-select>\n" +
+    "            </div>\n" +
+    "            <div style=\"margin: 50px 15px;\">\n" +
+    "                <button class=\"btn btn-success\" ng-click=\"agregar('izq')\">Agregar Servicio</button>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
     "    </div>\n" +
-    "    <div style=\"margin: 50px 15px;\">\n" +
-    "      <button class=\"btn btn-success\" ng-click=\"agregar('izq')\">Agregar Servicio</button>\n" +
+    "    <div class=\"localizacion-servicio {{ getDireccion() }}\" ng-hide=\"getDireccion() == 'vertical'\">\n" +
+    "        <div class=\"panel-first\">\n" +
+    "            <div ng-repeat=\"item in arco.lugares.izq track by $index\">\n" +
+    "                <servicio-select direccion=\"{{ firstArrow }}\" lugar=\"item\" categorias=\"categorias\"\n" +
+    "                                 remove=\"remove('izq', $index)\"></servicio-select>\n" +
+    "            </div>\n" +
+    "            <div style=\"margin: 50px 15px;\">\n" +
+    "                <button class=\"btn btn-success\" ng-click=\"agregar('izq')\">Agregar Servicio</button>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "        <div class=\"panel-edge\">\n" +
+    "            <div class=\"arco\"><p>{{ arco.distancia }} metros</p></div>\n" +
+    "            <div class=\"nodo1\">{{ arco.from }}</div>\n" +
+    "            <div class=\"nodo2\">{{ arco.to }}</div>\n" +
+    "        </div>\n" +
+    "        <div class=\"panel-second\">\n" +
+    "            <div ng-repeat=\"item in arco.lugares.der track by $index\">\n" +
+    "                <servicio-select direccion=\"{{ secondArrow }}\" lugar=\"item\" categorias=\"categorias\"\n" +
+    "                                 remove=\"remove('der', $index)\"></servicio-select>\n" +
+    "            </div>\n" +
+    "            <div style=\"margin: 50px 15px;\">\n" +
+    "                <button class=\"btn btn-success\" ng-click=\"agregar('der')\">Agregar Servicio</button>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
     "    </div>\n" +
-    "  </div>\n" +
-    "  <div class=\"panel-edge\">\n" +
-    "    <div class=\"arco\"><p>{{ arco.distancia }} metros</p></div>\n" +
-    "    <div class=\"nodo1\">{{ arco.from }}</div>\n" +
-    "    <div class=\"nodo2\">{{ arco.to }}</div>\n" +
-    "  </div>\n" +
-    "  <div class=\"panel-second\">\n" +
-    "    <div ng-repeat=\"item in arco.lugares.der track by $index\">\n" +
-    "      <servicio-select direccion=\"{{ secondArrow }}\" lugar=\"item\" categorias=\"categorias\" remove=\"remove('der', $index)\"></servicio-select>\n" +
-    "    </div>\n" +
-    "    <div style=\"margin: 50px 15px;\">\n" +
-    "      <button class=\"btn btn-success\" ng-click=\"agregar('der')\">Agregar Servicio</button>\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "</div>\n" +
     "</div>\n" +
     "");
 }]);

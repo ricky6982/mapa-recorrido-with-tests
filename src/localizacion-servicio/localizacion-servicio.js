@@ -1,7 +1,6 @@
 (function(angular){
 
     angular.module('localizacionServicio', ['mapaRecorrido.templates'])
-
         .directive('servicioSelect',[
             '$filter',
             function($filter){
