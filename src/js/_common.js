@@ -83,6 +83,9 @@ function validarEstado(arco){
         var aux = arco.from;
         arco.from = arco.to;
         arco.to = aux;
+        var lugaresAux = angular.copy(arco.lugares.izq);
+        arco.lugares.izq = angular.copy(arco.lugares.der);
+        arco.lugares.der = angular.copy(lugaresAux);
     }
 }
 

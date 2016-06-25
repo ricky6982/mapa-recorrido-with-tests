@@ -24,7 +24,7 @@ module.exports = function (grunt){
             },
             build: {
                 src: files.src,
-                dest: '<%= builddir %>/<%= pkg.name %>.js'
+                dest: '<%= builddir %>/<%= pkg.name %>-<%= pkg.version %>.js'
             }
         },
 
@@ -48,7 +48,7 @@ module.exports = function (grunt){
         sass: {
             dist: {
                 files: {
-                    '<%= builddir %>/<%= pkg.name %>.css': 'src/sass/main.scss'
+                    '<%= builddir %>/<%= pkg.name %>-<%= pkg.version %>.css': 'src/sass/main.scss'
                 }
             }
         },

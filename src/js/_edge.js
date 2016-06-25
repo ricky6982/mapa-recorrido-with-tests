@@ -15,8 +15,8 @@ _edge = {
         return _edges.get(id);
     },
     remove: function(e){
-        n1 = e.from;
-        n2 = e.to;
+        var n1 = e.from;
+        var n2 = e.to;
         _edges.remove(e);
         actualizarConexionOrientacion(n1, n2);
     },
